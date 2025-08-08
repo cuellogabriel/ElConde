@@ -8,47 +8,22 @@
   <title>El Conde - Delivery de Pizzas y Minutas</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://kit.fontawesome.com/9ec9c45c4a.js" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Montserrat', 'Orbitron', Arial, sans-serif;
-      background: linear-gradient(160deg, #0d0d0d 0%, #1f1f1f 100%);
-      color: #fff;
-    }
-    h1, h2, h3, h4 {
-      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .accordion-content {
-      display: none;
-    }
-    .accordion.open .accordion-content {
-      display: block;
-    }
-    .glow-btn {
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-    }
-    .glow-hover:hover {
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
-      transition: 0.3s;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="text-white">
   <!-- 1. NAVBAR -->
   <header class="bg-black bg-opacity-90 py-3 md:py-4 shadow-lg">
     <nav class="container mx-auto flex flex-col md:flex-row items-center justify-between px-2 md:px-4">
-      <!-- Logo arriba en mobile, izquierda en desktop -->
       <div class="flex items-center justify-center w-full md:w-auto mb-2 md:mb-0">
         <h1 class="text-3xl md:text-4xl font-bold text-white">🍕 El Conde</h1>
       </div>
-      <!-- Buscador debajo del logo en mobile, centro en desktop -->
+      <!-- search -->
       <div class="w-full md:flex-1 flex justify-center mb-2 md:mb-0">
         <input type="text" id="buscador" placeholder="Buscar productos..." class="w-full max-w-xs md:max-w-md text-black px-2 py-2 rounded-md" />
       </div>
-      <!-- Menú abajo en mobile, derecha en desktop -->
       <ul class="flex flex-col md:flex-row gap-2 md:gap-6 text-xs md:text-sm uppercase items-center w-full md:w-auto">
         <li><a href="#" class="hover:text-yellow-400">Inicio</a></li>
         <li class="relative group">
@@ -57,8 +32,8 @@
             <li><a href="#pizzas">Pizzas</a></li>
             <li><a href="#empanadas">Empanadas</a></li>
             <li><a href="#calzones">Calzones</a></li>
+            <li><a href="#fugazzetas">Fugazzetas Rellenas</a></li>
             <li><a href="#sandwiches">Sandwiches</a></li>
-            <li><a href="#tartas">Tartas</a></li>
             <li><a href="#minutas">Minutas</a></li>
             <li><a href="#hamburguesas">Hamburguesas</a></li>
             <li><a href="#adicionales">Adicionales</a></li>
@@ -70,7 +45,7 @@
     </nav>
   </header>
 
-  <!-- 2. SLIDER DE PROMOCIONES -->
+  <!-- PROMOCIONES -->
   <section class="mt-4 md:mt-6 px-2 md:px-0" id="promos">
     <div class="relative w-full max-w-xs md:max-w-3xl mx-auto overflow-hidden rounded-lg shadow-xl">
       <div id="slider" class="whitespace-nowrap transition-all duration-700">
@@ -116,428 +91,17 @@
   </section>
 
   <!-- PRODUCTOS ACORDEÓN -->
-  <section class="mt-6 md:mt-10 container mx-auto px-2 md:px-4">
-    <!-- PIZZAS -->
-    <div id="pizzas" class="accordion open border-t border-yellow-500 py-2 md:py-4">
-      <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
-        <h2 class="text-base md:text-xl font-semibold">🍕 Pizzas</h2>
-        <span class="text-base md:text-xl">-</span>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Muzzarella</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Salsa de tomate, queso muzzarella, aceitunas.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Grande)', 4200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $4200</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Chica)', 3100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Chica $3100</button>
-            <button onclick="agregarAlCarrito('Pizza Muzzarella (Ind.)', 2200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Individual $2200</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- EMPANADAS -->
-    <div id="empanadas" class="accordion border-t border-yellow-500 py-2 md:py-4">
-      <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
-        <h2 class="text-base md:text-xl font-semibold">🥟 Empanadas</h2>
-        <span class="text-base md:text-xl">+</span>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Carne</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Carne cortada a cuchillo, cebolla, huevo y especias.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Empanada Carne', 700)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Unidad $700</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- CALZONES -->
-    <div id="calzones" class="accordion border-t border-yellow-500 py-2 md:py-4">
-      <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
-        <h2 class="text-base md:text-xl font-semibold">🌯 Calzones</h2>
-        <span class="text-base md:text-xl">+</span>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Calzone de Jamón y Queso</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Jamón, queso muzzarella y salsa de tomate.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Calzone Jamón y Queso', 3500)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Grande $3500</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- SANDWICHES -->
-    <div id="sandwiches" class="accordion border-t border-yellow-500 py-2 md:py-4">
-      <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
-        <h2 class="text-base md:text-xl font-semibold">🥪 Sandwiches</h2>
-        <span class="text-base md:text-xl">+</span>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Sandwich de Milanesa</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Milanesa de carne, lechuga, tomate y mayonesa.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Sandwich Milanesa', 2500)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Completo $2500</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- MINUTAS -->
-    <div id="minutas" class="accordion border-t border-yellow-500 py-2 md:py-4">
-      <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
-        <h2 class="text-base md:text-xl font-semibold">🍽️ Minutas</h2>
-        <span class="text-base md:text-xl">+</span>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Milanesa Completa</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Milanesa de carne con papas fritas, huevo y jamón.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Milanesa Completa', 3200)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Plato $3200</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- HAMBURGUESAS -->
-    <div id="hamburguesas" class="accordion border-t border-yellow-500 py-2 md:py-4">
-      <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
-        <h2 class="text-base md:text-xl font-semibold">🍔 Hamburguesas</h2>
-        <span class="text-base md:text-xl">+</span>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Hamburguesa Completa</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Carne, queso, jamón, huevo, lechuga y tomate.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Hamburguesa Completa', 2100)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Completa $2100</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- BEBIDAS -->
-    <div id="bebidas" class="accordion border-t border-yellow-500 py-2 md:py-4">
-      <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
-        <h2 class="text-base md:text-xl font-semibold">🥤 Bebidas</h2>
-        <span class="text-base md:text-xl">+</span>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Coca-Cola 1.5L</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Gaseosa Coca-Cola botella 1.5 litros.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Coca-Cola 1.5L', 1500)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Botella $1500</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ADICIONALES -->
-    <div id="adicionales" class="accordion border-t border-yellow-500 py-2 md:py-4">
-      <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
-        <h2 class="text-base md:text-xl font-semibold">➕ Adicionales</h2>
-        <span class="text-base md:text-xl">+</span>
-      </div>
-      <div class="accordion-content mt-2">
-        <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
-          <div class="flex-1">
-            <p class="font-bold text-sm md:text-base">Porción de Fainá</p>
-            <p class="text-xs md:text-sm text-gray-300 mt-1">Porción de fainá tradicional.</p>
-          </div>
-          <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-            <button onclick="agregarAlCarrito('Porción de Fainá', 500)" class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">Unidad $500</button>
-          </div>
-        </div>
-      </div>
-      <div class="border-t border-yellow-500 mt-4"></div>
-    </div>
-  </section>
+  <!-- Solo la estructura, sin productos hardcodeados -->
+<section class="mt-6 md:mt-10 container mx-auto px-2 md:px-4">
+  <div id="pizzas"></div>
+  <div id="empanadas"></div>
+  <div id="calzones"></div>
+  <div id="sandwiches"></div>
+  <div id="minutas"></div>
+  <div id="hamburguesas"></div>
+  <div id="bebidas"></div>
+  <div id="adicionales"></div>
+</section>
 
   <!-- MITAD Y MITAD -->
   <section class="mt-8 mb-16 container mx-auto px-2 md:px-4">
@@ -615,15 +179,15 @@
       <!-- Medios de Pago y Horarios -->
       <div>
         <h4 class="font-semibold mb-2">💳 Medios de Pago</h4>
-        <p>Efectivo, Débito, MercadoPago</p>
+        <p>Efectivo, Débito, MercadoPago , Tarjeta</p>
         <h4 class="font-semibold mt-3">⏰ Horarios</h4>
-        <p>Lunes a Dom: 20 a 00hs</p>
+        <p>Miercoles a Lunes: 19:30hs a 00hs</p>
       </div>
       <!-- Contacto (oculto en mobile, visible en desktop) -->
       <div class="hidden md:block">
         <h4 class="font-semibold mb-2">📍 Contacto</h4>
-        <p>Dirección: Av. Siempre Viva 123</p>
-        <p>Tel: 11 1234 5678</p>
+        <p>Dirección: Gral Lucio Mansilla 2782</p>
+        <p>Tel : 4962-1300 / 1900</p>
         <a href="https://wa.me/541134075054" class="text-green-400 hover:underline">WhatsApp Directo</a>
         <p class="mt-2 italic">Desde 1994</p>
       </div>
@@ -631,8 +195,8 @@
       <div class="col-span-2 md:hidden">
         <div class="border-t border-gray-700 mt-4 pt-4">
           <h4 class="font-semibold mb-2">📍 Contacto</h4>
-          <p>Dirección: Av. Siempre Viva 123</p>
-          <p>Tel: 11 1234 5678</p>
+          <p>Dirección: Gral Lucio Mansilla 2782</p>
+          <p>Tel : 4962-1300 / 1900</p>
           <a href="https://wa.me/541134075054" class="text-green-400 hover:underline">WhatsApp Directo</a>
           <p class="mt-2 italic">Desde 1994</p>
         </div>
@@ -640,89 +204,6 @@
     </div>
   </div>
 </footer>
-  <script>
-    let productosCarrito = [];
-    function toggleAccordion(el) {
-      const acc = el.parentElement;
-      acc.classList.toggle('open');
-      const icon = el.querySelector('span');
-      icon.textContent = acc.classList.contains('open') ? '-' : '+';
-    }
-    function agregarAlCarrito(nombre, precio) {
-      productosCarrito.push({ nombre, precio });
-      actualizarCarrito();
-    }
-    function eliminarDelCarrito(index) {
-      productosCarrito.splice(index, 1);
-      actualizarCarrito();
-    }
-    function actualizarCarrito() {
-      const lista = document.getElementById('lista-carrito');
-      const total = document.getElementById('total-carrito');
-      lista.innerHTML = '';
-      let totalPrecio = 0;
-      productosCarrito.forEach((p, i) => {
-        totalPrecio += p.precio;
-        const li = document.createElement('li');
-        li.innerHTML = `${p.nombre} - $${p.precio} <button onclick="eliminarDelCarrito(${i})" class="text-red-400 ml-2">✖</button>`;
-        lista.appendChild(li);
-      });
-      total.textContent = totalPrecio;
-      document.getElementById('carrito').classList.toggle('hidden', productosCarrito.length === 0);
-    }
-    function mostrarFormulario() {
-      document.getElementById('formularioPedido').classList.remove('hidden');
-    }
-    function enviarPedido(e) {
-      e.preventDefault();
-      const nombre = document.getElementById('nombre').value;
-      const apellido = document.getElementById('apellido').value;
-      const telefono = document.getElementById('telefono').value;
-      const direccion = document.getElementById('direccion').value;
-      const pago = document.getElementById('pago').value;
-      const mensaje = encodeURIComponent(`🛒 Pedido El Conde\nCliente: ${nombre} ${apellido}\nTel: ${telefono}\nDirección: ${direccion}\nPago: ${pago}\n\nProductos:\n${productosCarrito.map(p => `• ${p.nombre} - $${p.precio}`).join('\n')}\n\nTotal: $${productosCarrito.reduce((acc, p) => acc + p.precio, 0)}`);
-      window.open(`https://wa.me/541134075054?text=${mensaje}`, '_blank');
-      productosCarrito = [];
-      actualizarCarrito();
-      document.getElementById('formularioPedido').classList.add('hidden');
-    }
-    // Slider de promociones
-    let slideIndex = 0;
-    const slider = document.getElementById('slider');
-    const slides = slider.children;
-    const totalSlides = slides.length;
-
-    function moverSlide(dir) {
-      slideIndex = (slideIndex + dir + totalSlides) % totalSlides;
-      slider.style.transform = `translateX(-${slideIndex * slider.offsetWidth}px)`;
-    }
-
-    document.getElementById('nextSlide').onclick = () => moverSlide(1);
-    document.getElementById('prevSlide').onclick = () => moverSlide(-1);
-    setInterval(() => moverSlide(1), 5000);
-
-    const preciosPizzas = {
-      "Muzzarella": 4200,
-      "Napolitana": 4200,
-      "Palmito": 4200,
-      "Super Napolitana": 4200
-      // Agrega más variedades y precios si tienes
-    };
-
-    function armarMitadMitad(e) {
-      e.preventDefault();
-      const mitad1 = document.getElementById('mitad1').value;
-      const mitad2 = document.getElementById('mitad2').value;
-      if (mitad1 && mitad2) {
-        const precioMitad1 = preciosPizzas[mitad1] ? preciosPizzas[mitad1] / 2 : 0;
-        const precioMitad2 = preciosPizzas[mitad2] ? preciosPizzas[mitad2] / 2 : 0;
-        const precioTotal = precioMitad1 + precioMitad2;
-        const nombre = `Pizza Mitad ${mitad1} / Mitad ${mitad2}`;
-        agregarAlCarrito(nombre, precioTotal);
-        alert(`¡Pizza mitad y mitad agregada al carrito!\nPrecio: $${precioTotal}`);
-        document.getElementById('formMitadMitad').reset();
-      }
-    }
-  </script>
+ <script src="productos.js"></script>
 </body>
 </html>

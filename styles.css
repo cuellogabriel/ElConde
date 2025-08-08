@@ -1,0 +1,23 @@
+body {
+      font-family: 'Montserrat', 'Orbitron', Arial, sans-serif;
+      background: linear-gradient(160deg, #0d0d0d 0%, #1f1f1f 100%);
+      color: #fff;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .accordion-content {
+      display: none;
+    }
+    .accordion.open .accordion-content {
+      display: block;
+    }
+    .glow-btn {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+    .glow-hover:hover {
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+      transition: 0.3s;
+    }
