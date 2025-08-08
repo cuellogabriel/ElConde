@@ -523,7 +523,7 @@ minutas: [
       ],
       gratis: true 
     }
-  },
+  }
  
 ],
 hamburguesas: [
@@ -623,20 +623,63 @@ hamburguesas: [
 
   bebidas: [
     {
-      nombre: "Coca-Cola 1.5L",
-      descripcion: "Gaseosa Coca-Cola botella 1.5 litros.",
+      nombre: "Coca-Cola 1.25L",
+      descripcion: "Gaseosa En Botella De PLastico De 1.25 litros.",
       precios: [
-        { tipo: "Botella", precio: 1500 }
+        { tipo: "Botella", precio: 3800 }
+      ]
+    },
+   {
+      nombre: "Coca-Cola 1.75L",
+      descripcion: "Gaseosa En Botella De PLastico De 1.75 litros.",
+      precios: [
+        { tipo: "Botella", precio: 4800 }
+      ]
+    },
+     {
+      nombre: "Pepsi - 7up 1.50L",
+      descripcion: "Gaseosa En Botella De PLastico De 1.50 litros.",
+      precios: [
+        { tipo: "Botella", precio: 3800 }
+      ]
+    },
+     {
+      nombre: "Sprite - Fanta 1.50L",
+      descripcion: "Gaseosa En Botella De PLastico De 1.50 litros.",
+      precios: [
+        { tipo: "Botella", precio: 3800 }
+      ]
+    },
+     {
+      nombre: "Guiness - Artesanales",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 4000 }
       ]
     },
     {
-      nombre: "Agua 500ml",
-      descripcion: "Agua mineral sin gas 500ml.",
+      nombre: "Heineken - Stella - Miller - Imperial",
+      descripcion: "Cerveza En Lata De 473Ml",
       precios: [
-        { tipo: "Botella", precio: 700 }
+        { tipo: "Lata", precio: 3900 }
+      ]
+    },
+    {
+      nombre: "Quilmes - Grolsch - Andes",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 3400 }
+      ]
+    },
+    {
+      nombre: "Warsteiner - Budweiser - Brahama",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 3200 }
       ]
     }
   ],
+
   adicionales: [
     {
       nombre: "Porción de Fainá",
@@ -653,6 +696,7 @@ hamburguesas: [
       ]
     }
   ],
+
   fugazzetas: [
     {
       nombre: "Porción de Fainá",
