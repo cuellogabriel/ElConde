@@ -735,8 +735,8 @@ function renderProductos(id, lista) {
         <p class="text-xs md:text-sm text-gray-300 mt-1">${prod.descripcion}</p>
         ${prod.opciones ? `
           <div class="mt-2 flex items-center gap-2">
-            <label class="block font-semibold text-xs md:text-sm">${prod.opciones.titulo}:</label>
-            <select class="w-40 p-1 rounded text-black text-xs md:text-sm acomp-select" data-producto="${prod.nombre}" data-gratis="${prod.opciones.gratis}">
+           <label class="block font-semibold text-xs md:text-sm whitespace-nowrap">${prod.opciones.titulo}:</label>
+            <select class="w-48 p-1 rounded text-white bg-gray-700 border border-gray-500 text-xs md:text-sm acomp-select" data-producto="${prod.nombre}" data-gratis="${prod.opciones.gratis}">
               <option value="">Sin acompañamiento</option>
               ${prod.opciones.items.map(opt => `
                 <option value="${opt.nombre}" data-precio="${opt.precio}">${opt.nombre} ${prod.opciones.gratis ? '(sin cargo)' : `(+ $${opt.precio})`}</option>
@@ -747,8 +747,7 @@ function renderProductos(id, lista) {
       </div>
       <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
         ${prod.precios.map(p => `
-          <button onclick="agregarConAcomp(this, '${prod.nombre} (${p.tipo})', ${p.precio})"
-           class="glow-btn glow-hover px-1 md:px-2 py-1 bg-slate-900 text-yellow-300 border border-yellow-400 rounded text-xs md:text-base">
+         <button onclick="agregarConAcomp(this, '${prod.nombre} (${p.tipo})', ${p.precio})" class="glow-btn glow-hover px-2 py-1 bg-slate-900 text-yellow-300 border border-yellow-400 rounded text-xs md:text-base whitespace-nowrap">
             ${p.tipo} <span class="font-semibold">$${p.precio}</span>
           </button>
         `).join('')}

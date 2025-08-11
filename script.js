@@ -77,12 +77,10 @@
       modalTitulo.textContent = 'Pago por Transferencia';
       modalDato.textContent = '0000003100067553675592'; 
       modal.classList.remove('hidden');
-      document.getElementById('formularioPedido').classList.add('hidden');
     } else if (pago === 'MercadoPago') {
       modalTitulo.textContent = 'Pago con MercadoPago';
       modalDato.textContent = 'elcondepizza.mp'; 
       modal.classList.remove('hidden');
-      document.getElementById('formularioPedido').classList.add('hidden');
     } else {
       alert('¡Pedido enviado con éxito!');
       productosCarrito = [];
