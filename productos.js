@@ -1,4 +1,4 @@
-// Lista de productos por categoría (2 productos por cada una de ejemplo)
+// Lista de productos 
 const productos = {
   pizzas: [
     {
@@ -785,3 +785,23 @@ renderProductos('hamburguesas', productos.hamburguesas);
 renderProductos('bebidas', productos.bebidas);
 renderProductos('adicionales', productos.adicionales);
 renderProductos('fugazzetas', productos.fugazzetas);
+
+
+// Función de empanadas
+function renderPromoEmpanadas() {
+  const contenedor = document.getElementById('listaEmpanadasPromo');
+  if (!contenedor) return;
+
+  const empanadas = productos.empanadas;
+  let html = '';
+
+  empanadas.forEach(emp => {
+    const precio = emp.precios[0].precio;
+  html += `
+      <div class="flex items-center justify-between">
+        <label for="emp-${emp.nombre.replace(/\s+/g, '-')}" class="text-sm">${emp.nombre}</label>
+        <input type="number" id="emp-${emp.nombre.replace(/\s+/g, '-')}" name="${emp.nombre}" data-precio="${precio}" min="0" max="12" value="0" oninput="actualizarConteoEmpanadas()" class="w-12 text-center bg-gray-700 rounded p-1">
+      </div>`;
+  });
+  contenedor.innerHTML = html;
+}
