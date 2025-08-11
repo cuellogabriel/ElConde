@@ -748,8 +748,8 @@ function renderProductos(id, lista) {
       <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
         ${prod.precios.map(p => `
           <button onclick="agregarConAcomp(this, '${prod.nombre} (${p.tipo})', ${p.precio})"
-            class="glow-btn glow-hover px-1 md:px-2 py-1 bg-red-600 rounded text-xs md:text-base">
-            ${p.tipo} $${p.precio}
+           class="glow-btn glow-hover px-1 md:px-2 py-1 bg-slate-900 text-yellow-300 border border-yellow-400 rounded text-xs md:text-base">
+            ${p.tipo} <span class="font-semibold">$${p.precio}</span>
           </button>
         `).join('')}
       </div>
