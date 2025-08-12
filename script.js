@@ -48,6 +48,9 @@
     document.getElementById('formularioPedido').classList.remove('hidden');
   }
 
+    function closeFormulario() {
+    document.getElementById('formularioPedido').classList.add('hidden');
+  }
   function enviarPedido(e) {
     e.preventDefault();
     const nombre = document.getElementById('nombre').value;
@@ -66,7 +69,7 @@
     }, 0);
 
     const mensaje = encodeURIComponent(`🛒 Pedido El Conde\nCliente: ${nombre} ${apellido}\nTel: ${telefono}\nDirección: ${direccion}\nPago: ${pago}\n\nProductos:\n${productosTexto}\n\nTotal: $${total}`);
-    window.open(`https://wa.me/541134075054?text=${mensaje}`, '_blank');
+    window.open(`https://wa.me/541160486366?text=${mensaje}`, '_blank');
 
     // datos de pago 
     const modal = document.getElementById('modalPago');
@@ -77,12 +80,14 @@
       modalTitulo.textContent = 'Pago por Transferencia';
       modalDato.textContent = '0000003100067553675592'; 
       modal.classList.remove('hidden');
+      document.getElementById('formularioPedido').classList.add('hidden');
     } else if (pago === 'MercadoPago') {
       modalTitulo.textContent = 'Pago con MercadoPago';
       modalDato.textContent = 'elcondepizza.mp'; 
       modal.classList.remove('hidden');
+      document.getElementById('formularioPedido').classList.add('hidden');
     } else {
-      alert('¡Pedido enviado con éxito!');
+      showAlert('¡Pedido enviado con éxito!', '¡Gracias!');
       productosCarrito = [];
       actualizarCarrito();
       document.getElementById('formularioPedido').classList.add('hidden');
@@ -129,7 +134,7 @@
       const precioTotal = precioMitad1 + precioMitad2;
       const nombre = `Pizza Mitad ${mitad1} / Mitad ${mitad2}`;
       agregarAlCarrito(nombre, precioTotal);
-      alert(`¡Pizza mitad y mitad agregada al carrito!\nPrecio: $${precioTotal}`);
+      showAlert(`Pizza mitad y mitad agregada al carrito con un precio de $${precioTotal}`, 'Producto Agregado');
       document.getElementById('formMitadMitad').reset();
     }
   }
@@ -175,13 +180,13 @@
     });
 
     if (totalCantidad < 12) {
-      alert('Debes seleccionar al menos 12 empanadas para acceder a la promoción.');
+      showAlert('Debes seleccionar al menos 12 empanadas para acceder a la promoción.', 'Atención');
       return;
     }
 
     const nombreProducto = `Promo Empanadas (${detalleEmpanadas.join(', ')})`;
     agregarAlCarrito(nombreProducto, precioTotal);
-    alert('¡Promoción de empanadas agregada al carrito!');
+    showAlert('¡Promoción de empanadas agregada al carrito!', 'Producto Agregado');
     document.getElementById('formDocenaEmpanadas').reset();
     actualizarConteoEmpanadas();
   }
@@ -197,7 +202,7 @@
       }, 2000);
     }).catch(err => {
       console.error('Error al copiar: ', err);
-      alert('No se pudo copiar el texto.');
+      showAlert('No se pudo copiar el texto.', 'Error');
     });
   }
 
@@ -206,4 +211,20 @@
     productosCarrito = [];
     actualizarCarrito();
     document.getElementById('formularioPedido').classList.add('hidden');
+  }
+
+  // CUSTOM ALERTS 
+  
+  function showAlert(message, title = 'Aviso') {
+    const modal = document.getElementById('customAlertModal');
+    const modalTitle = document.getElementById('customAlertTitulo');
+    const modalMessage = document.getElementById('customAlertMensaje');
+
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    modal.classList.remove('hidden');
+  }
+
+  function closeAlert() {
+    document.getElementById('customAlertModal').classList.add('hidden');
   }

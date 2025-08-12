@@ -94,6 +94,7 @@
 <section class="mt-6 md:mt-10 container mx-auto px-2 md:px-4">
   <div id="pizzas"></div>
   <div id="empanadas"></div>
+  <div id="fugazzetas"></div>
   <div id="calzones"></div>
   <div id="sandwiches"></div>
   <div id="minutas"></div>
@@ -103,7 +104,7 @@
 </section>
 
   <!-- MITAD Y MITAD -->
-  <section class="mt-8 mb-16 container mx-auto px-2 md:px-4">
+  <section class="mt-8 mb-8 container mx-auto px-2 md:px-4">
     <div class="bg-gradient-to-r from-gray-800 to-black p-4 md:p-6 rounded-lg shadow-xl mb-8 max-w-xs md:max-w-md mx-auto">
       <h2 class="text-xl font-bold mb-3 text-center">🍕 Armá tu Pizza Mitad y Mitad</h2>
       <form id="formMitadMitad" class="flex flex-col gap-2 items-center" onsubmit="armarMitadMitad(event)">
@@ -137,7 +138,7 @@
   </section>
 
   <!-- PROMO DOCENA EMPANADAS -->
-<section class="mt-8 mb-16 container mx-auto px-2 md:px-4">
+<section class="mt-8 mb-8 container mx-auto px-2 md:px-4">
   <div class="bg-gradient-to-r from-gray-800 to-black p-4 md:p-6 rounded-lg shadow-xl mb-8 max-w-xs md:max-w-2xl mx-auto">
     <h2 class="text-xl font-bold mb-3 text-center">🥟 Promo Docena de Empanadas</h2>
     <p class="text-center text-sm text-gray-300 mb-4">Elige 12 empanadas o más y obtén $200 de descuento en cada una.</p>
@@ -152,7 +153,7 @@
 
 
   <!-- CARRITO DE COMPRAS -->
-  <section class="fixed bottom-2 right-2 md:bottom-4 md:right-4 bg-gradient-to-r from-gray-800 to-black p-2 md:p-4 rounded-lg shadow-xl hidden w-11/12 md:w-auto" id="carrito">
+    <section class="fixed bottom-2 right-2 md:bottom-4 md:right-4 bg-gradient-to-r from-gray-800 to-black p-2 md:p-4 rounded-lg shadow-xl hidden w-11/12 md:w-auto" id="carrito">
     <h3 class="font-bold mb-2 text-base md:text-lg">🛒 Carrito</h3>
     <ul id="lista-carrito" class="text-xs md:text-sm mb-2"></ul>
     <p class="font-semibold text-xs md:text-base">Total: $<span id="total-carrito">0</span></p>
@@ -161,7 +162,9 @@
 
   <!--FORMULARIO FINAL -->
   <section id="formularioPedido" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden">
-    <form onsubmit="enviarPedido(event)" class="bg-gray-800 p-4 md:p-6 rounded-lg shadow-lg space-y-2 md:space-y-3 w-full max-w-xs md:max-w-md">
+    <form id="orderForm" onsubmit="enviarPedido(event)" class="bg-gray-800 p-4 md:p-6 rounded-lg shadow-lg space-y-2 md:space-y-3 w-full max-w-xs md:max-w-md relative" autocomplete="off">
+      <button type="button" onclick="closeFormulario()" class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+      <h3 class="text-lg font-bold text-center mb-2 text-yellow-300">Completa tus datos</h3>
       <input required type="text" id="nombre" placeholder="Nombre" class="w-full p-2 rounded text-black text-xs md:text-base" />
       <input required type="text" id="apellido" placeholder="Apellido" class="w-full p-2 rounded text-black text-xs md:text-base" />
       <input required type="tel" id="telefono" placeholder="Teléfono" class="w-full p-2 rounded text-black text-xs md:text-base" />
@@ -173,13 +176,14 @@
         <option value="MercadoPago">MercadoPago</option>
         <option value="Tarjeta">Tarjeta</option>
       </select>
-      <button type="submit" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-3 py-2 rounded font-bold text-xs md:text-base w-full">Enviar Pedido</button>
+      <div class="flex justify-center pt-2">
+        <button type="submit" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-6 py-2 rounded glow-hover font-bold text-sm md:text-base">Enviar Pedido</button>
+      </div>
     </form>
   </section>
 
- 
-  </section>  <!-- MODAL DE PAGO -->
-  <section id="modalPago" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden">
+  <!-- MODAL DE PAGO -->
+  <section id="modalPago" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden z-40">
     <div class="bg-gray-800 p-6 rounded-lg shadow-lg space-y-4 w-full max-w-xs md:max-w-sm text-center">
       <h3 id="modalPagoTitulo" class="text-xl font-bold text-yellow-400"></h3>
       <p class="text-gray-300">Tu pedido fue enviado. Por favor, realiza el pago a la siguiente cuenta:</p>
@@ -189,8 +193,17 @@
           <i class="far fa-copy"></i>
         </button>
       </div>
-      <p id="copiadoMensaje" class="text-green-400 text-sm h-4"></p> <!-- Placeholder for "Copiado!" message -->
-      <button onclick="cerrarModalPago()" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold w-full mt-2">
+      <p id="copiadoMensaje" class="text-green-400 text-sm h-4"></p>
+      <button onclick="cerrarModalPago()" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold w-full mt-2">Entendido</button>
+    </div>
+  </section>
+
+  <!-- CUSTOM ALERT MODAL -->
+  <section id="customAlertModal" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden z-50">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg space-y-4 w-full max-w-xs md:max-w-sm text-center">
+      <h3 id="customAlertTitulo" class="text-xl font-bold text-yellow-400"></h3>
+      <p id="customAlertMensaje" class="text-gray-300"></p>
+      <button onclick="closeAlert()" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold w-full mt-2">
         Entendido
       </button>
     </div>

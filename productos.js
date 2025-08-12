@@ -699,17 +699,19 @@ hamburguesas: [
 
   fugazzetas: [
     {
-      nombre: "Porción de Fainá",
-      descripcion: "Porción de fainá tradicional.",
+      nombre: "Fugazzeta Rellena",
+      descripcion: "Muzzarella, jamón, cebolla, orégano y aceitunas.",
       precios: [
-        { tipo: "Unidad", precio: 500 }
+        { tipo: "Grande", precio: 19000 },
+        { tipo: "Chica", precio: 17000 }
       ]
     },
     {
-      nombre: "Salsa Extra",
-      descripcion: "Salsa de tomate casera.",
+      nombre: "Fugazzeta Rellena con Morrones",
+      descripcion: "Muzzarella, jamón, morrones, cebolla, orégano y aceitunas.",
       precios: [
-        { tipo: "Unidad", precio: 300 }
+        { tipo: "Grande", precio: 20500 },
+        { tipo: "Chica", precio: 18500 }
       ]
     }
   ],
@@ -735,7 +737,7 @@ function renderProductos(id, lista) {
         <p class="text-xs md:text-sm text-gray-300 mt-1">${prod.descripcion}</p>
         ${prod.opciones ? `
           <div class="mt-2 flex items-center gap-2">
-           <label class="block font-semibold text-xs md:text-sm whitespace-nowrap">${prod.opciones.titulo}:</label>
+            <label class="block font-semibold text-xs md:text-sm whitespace-nowrap">${prod.opciones.titulo}:</label>
             <select class="w-48 p-1 rounded text-white bg-gray-700 border border-gray-500 text-xs md:text-sm acomp-select" data-producto="${prod.nombre}" data-gratis="${prod.opciones.gratis}">
               <option value="">Sin acompañamiento</option>
               ${prod.opciones.items.map(opt => `
@@ -747,7 +749,7 @@ function renderProductos(id, lista) {
       </div>
       <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
         ${prod.precios.map(p => `
-         <button onclick="agregarConAcomp(this, '${prod.nombre} (${p.tipo})', ${p.precio})" class="glow-btn glow-hover px-2 py-1 bg-slate-900 text-yellow-300 border border-yellow-400 rounded text-xs md:text-base whitespace-nowrap">
+          <button onclick="agregarConAcomp(this, '${prod.nombre} (${p.tipo})', ${p.precio})" class="glow-btn glow-hover px-2 py-1 bg-slate-900 text-yellow-300 border border-yellow-400 rounded text-xs md:text-base whitespace-nowrap">
             ${p.tipo} <span class="font-semibold">$${p.precio}</span>
           </button>
         `).join('')}
@@ -799,7 +801,7 @@ function renderPromoEmpanadas() {
   html += `
       <div class="flex items-center justify-between">
         <label for="emp-${emp.nombre.replace(/\s+/g, '-')}" class="text-sm">${emp.nombre}</label>
-        <input type="number" id="emp-${emp.nombre.replace(/\s+/g, '-')}" name="${emp.nombre}" data-precio="${precio}" min="0" max="12" value="0" oninput="actualizarConteoEmpanadas()" class="w-12 text-center bg-gray-700 rounded p-1">
+        <input type="number" id="emp-${emp.nombre.replace(/\s+/g, '-')}" name="${emp.nombre}" data-precio="${precio}" min="0" max="50" value="0" oninput="actualizarConteoEmpanadas()" class="w-12 text-center bg-gray-700 rounded p-1">
       </div>`;
   });
   contenedor.innerHTML = html;
