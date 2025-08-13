@@ -724,7 +724,7 @@ function renderProductos(id, lista) {
   const contenedor = document.getElementById(id);
   let html = `<div class="accordion border-t border-yellow-500 py-2 md:py-4 open">
     <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
-      <h2 class="text-base md:text-xl font-semibold">${id.charAt(0).toUpperCase() + id.slice(1)}</h2>
+      <h2 class="text-base md:text-xl font-semibold text-yellow-400">${id.charAt(0).toUpperCase() + id.slice(1)}</h2>
       <span class="text-base md:text-xl">-</span>
     </div>
     <div class="accordion-content mt-2">`;
@@ -757,6 +757,51 @@ function renderProductos(id, lista) {
     </div>
   `;
 });
+
+  // Si es la sección de pizzas, agregar el formulario de mitad y mitad al final.
+  if (id === 'pizzas') {
+    html += `
+      <div class="border-t border-gray-700 mt-4 pt-4">
+        <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg max-w-md mx-auto">
+          <h3 class="text-base md:text-lg font-bold mb-3 text-center">🍕 Armá tu Pizza Mitad y Mitad</h3>
+          <form id="formMitadMitad" class="flex flex-col gap-2 items-center" onsubmit="armarMitadMitad(event)">
+            <div class="w-full flex flex-row gap-2">
+              <div class="flex-1">
+                <label class="block mb-1 font-semibold text-xs md:text-sm">Mitad 1:</label>
+                <select id="mitad1" required class="w-full p-1 rounded text-black text-xs md:text-sm">
+                  <!-- Opciones generadas por JS -->
+                </select>
+              </div>
+              <div class="flex-1">
+                <label class="block mb-1 font-semibold text-xs md:text-sm">Mitad 2:</label>
+                <select id="mitad2" required class="w-full p-1 rounded text-black text-xs md:text-sm">
+                  <!-- Opciones generadas por JS -->
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-3 py-1 rounded glow-hover font-bold w-24 text-center text-xs md:text-sm mt-2">
+              Agregar
+            </button>
+          </form>
+        </div>
+      </div>`;
+  }
+  else if (id === 'empanadas') {
+    html += `
+      <div class="border-t border-gray-700 mt-4 pt-4">
+        <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg max-w-2xl mx-auto">
+          <h3 class="text-base md:text-lg font-bold mb-3 text-center">🥟 Promo Docena de Empanadas</h3>
+          <p class="text-center text-xs md:text-sm text-gray-300 mb-4">Elige 12 empanadas o más y obtén $200 de descuento en cada una.</p>
+          <form id="formDocenaEmpanadas" class="flex flex-col gap-3 items-center" onsubmit="armarDocenaEmpanadas(event)">
+            <div id="listaEmpanadasPromo" class="w-full grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2">
+              <!-- Generado por JS -->
+            </div>
+            <p class="font-semibold text-sm md:text-base mt-2">Seleccionadas: <span id="conteoEmpanadas">0</span> (Mínimo 12)</p>
+            <button id="btnAgregarDocena" type="submit" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold w-32 text-center text-sm mt-2 opacity-50 cursor-not-allowed" disabled>Agregar</button>
+          </form>
+        </div>
+      </div>`;
+  }
 
   html += `</div></div>`;
   contenedor.innerHTML = html;

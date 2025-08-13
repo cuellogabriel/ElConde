@@ -44,13 +44,41 @@
     document.getElementById('carrito').classList.toggle('hidden', productosCarrito.length === 0);
   }
 
+  // --- INICIO FLUJO DE PEDIDO ---
+
+  function iniciarProcesoPedido() {
+    document.getElementById('modalTipoPedido').classList.remove('hidden');
+  }
+
+  function closeModalTipoPedido() {
+    document.getElementById('modalTipoPedido').classList.add('hidden');
+  }
+
+  function seleccionarTipoPedido(tipo) {
+    closeModalTipoPedido();
+    if (tipo === 'domicilio') {
+      mostrarFormulario();
+    } else if (tipo === 'retiro') {
+      mostrarFormularioRetiro();
+    }
+  }
+
   function mostrarFormulario() {
     document.getElementById('formularioPedido').classList.remove('hidden');
   }
 
-    function closeFormulario() {
+  function closeFormulario() {
     document.getElementById('formularioPedido').classList.add('hidden');
   }
+
+  function mostrarFormularioRetiro() {
+    document.getElementById('formularioRetiro').classList.remove('hidden');
+  }
+
+  function closeFormularioRetiro() {
+    document.getElementById('formularioRetiro').classList.add('hidden');
+  }
+
   function enviarPedido(e) {
     e.preventDefault();
     const nombre = document.getElementById('nombre').value;
@@ -80,17 +108,51 @@
       modalTitulo.textContent = 'Pago por Transferencia';
       modalDato.textContent = '0000003100067553675592'; 
       modal.classList.remove('hidden');
-      document.getElementById('formularioPedido').classList.add('hidden');
+      closeFormulario();
     } else if (pago === 'MercadoPago') {
       modalTitulo.textContent = 'Pago con MercadoPago';
       modalDato.textContent = 'elcondepizza.mp'; 
       modal.classList.remove('hidden');
-      document.getElementById('formularioPedido').classList.add('hidden');
+      closeFormulario();
     } else {
       showAlert('¡Pedido enviado con éxito!', '¡Gracias!');
       productosCarrito = [];
       actualizarCarrito();
-      document.getElementById('formularioPedido').classList.add('hidden');
+      closeFormulario();
+    }
+  }
+
+  function enviarPedidoRetiro(e) {
+    e.preventDefault();
+    const nombre = document.getElementById('nombreRetiro').value;
+    const telefono = document.getElementById('telefonoRetiro').value;
+    const pago = document.getElementById('pagoRetiro').value;
+
+    const productosTexto = productosCarrito.map(p => `• ${p.cantidad} × ${p.nombre} - $${p.precio * p.cantidad}`).join('\n');
+    const total = productosCarrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
+
+    const mensaje = encodeURIComponent(`🛒 Pedido para RETIRAR EN LOCAL\nCliente: ${nombre}\nTel: ${telefono}\nPago: ${pago}\n\nProductos:\n${productosTexto}\n\nTotal: $${total}`);
+    window.open(`https://wa.me/541160486366?text=${mensaje}`, '_blank');
+
+    const modal = document.getElementById('modalPago');
+    const modalTitulo = document.getElementById('modalPagoTitulo');
+    const modalDato = document.getElementById('modalPagoDato');
+
+    if (pago === 'Transferencia') {
+      modalTitulo.textContent = 'Pago por Transferencia';
+      modalDato.textContent = '0000003100067553675592'; 
+      modal.classList.remove('hidden');
+      closeFormularioRetiro();
+    } else if (pago === 'MercadoPago') {
+      modalTitulo.textContent = 'Pago con MercadoPago';
+      modalDato.textContent = 'elcondepizza.mp'; 
+      modal.classList.remove('hidden');
+      closeFormularioRetiro();
+    } else {
+      showAlert('¡Pedido enviado con éxito!', '¡Gracias!');
+      productosCarrito = [];
+      actualizarCarrito();
+      closeFormularioRetiro();
     }
   }
 
@@ -99,8 +161,9 @@
     if (typeof renderPromoEmpanadas === 'function') {
       renderPromoEmpanadas();
     }
-
-    // Lógica del slider
+    if (typeof poblarOpcionesMitadMitad === 'function') {
+      poblarOpcionesMitadMitad();
+    }
     let slideIndex = 0;
     const slider = document.getElementById('slider');
     const slides = slider?.children;
@@ -117,20 +180,34 @@
     setInterval(() => moverSlide(1), 5000);
   });
 
-  const preciosPizzas = {
-    "Muzzarella": 4200,
-    "Napolitana": 4200,
-    "Palmito": 4200,
-    "Super Napolitana": 4200
-  };
+  function poblarOpcionesMitadMitad() {
+    // Usaremos solo las pizzas 'Grandes' para la opción de mitad y mitad.
+    const pizzasParaMitades = productos.pizzas.filter(p => p.precios.some(precio => precio.tipo === 'Grande'));
+    const select1 = document.getElementById('mitad1');
+    const select2 = document.getElementById('mitad2');
+
+    if (!select1 || !select2) return;
+
+    let optionsHTML = '<option value="">Elige una pizza</option>';
+    pizzasParaMitades.forEach(pizza => {
+        const precioGrande = pizza.precios.find(p => p.tipo === 'Grande').precio;
+        // Guardamos el precio en un atributo 'data-precio' para usarlo después
+        optionsHTML += `<option value="${pizza.nombre}" data-precio="${precioGrande}">${pizza.nombre}</option>`;
+    });
+
+    select1.innerHTML = optionsHTML;
+    select2.innerHTML = optionsHTML;
+  }
 
   function armarMitadMitad(e) {
     e.preventDefault();
-    const mitad1 = document.getElementById('mitad1').value;
-    const mitad2 = document.getElementById('mitad2').value;
+    const selectMitad1 = document.getElementById('mitad1');
+    const selectMitad2 = document.getElementById('mitad2');
+    const mitad1 = selectMitad1.value;
+    const mitad2 = selectMitad2.value;
     if (mitad1 && mitad2) {
-      const precioMitad1 = preciosPizzas[mitad1] ? preciosPizzas[mitad1] / 2 : 0;
-      const precioMitad2 = preciosPizzas[mitad2] ? preciosPizzas[mitad2] / 2 : 0;
+      const precioMitad1 = parseFloat(selectMitad1.options[selectMitad1.selectedIndex].dataset.precio) / 2;
+      const precioMitad2 = parseFloat(selectMitad2.options[selectMitad2.selectedIndex].dataset.precio) / 2;
       const precioTotal = precioMitad1 + precioMitad2;
       const nombre = `Pizza Mitad ${mitad1} / Mitad ${mitad2}`;
       agregarAlCarrito(nombre, precioTotal);
@@ -210,7 +287,7 @@
     document.getElementById('modalPago').classList.add('hidden');
     productosCarrito = [];
     actualizarCarrito();
-    document.getElementById('formularioPedido').classList.add('hidden');
+    // No cerramos los otros formularios desde aquí para no causar conflictos
   }
 
   // CUSTOM ALERTS 
