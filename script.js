@@ -216,6 +216,96 @@
     }
   }
 
+  // --- INICIO PERSONALIZACIÓN DE PROMOS ---
+
+  function abrirModalPromo(nombre, precio, necesitaEmpanadas) {
+    const modal = document.getElementById('modalPromo');
+    const form = document.getElementById('formPromo');
+    form.reset(); // Limpiamos el formulario
+
+    // Guardamos los datos de la promo en el formulario
+    document.getElementById('promoModalTitulo').textContent = `Personalizar ${nombre}`;
+    document.getElementById('promoNombreBase').value = nombre;
+    document.getElementById('promoPrecioBase').value = precio;
+    document.getElementById('promoNecesitaEmpanadas').value = necesitaEmpanadas;
+
+    // Lógica para las empanadas
+    const seccionEmpanadas = document.getElementById('promoEmpanadasSeleccion');
+    if (necesitaEmpanadas) {
+      const lista = document.getElementById('promoEmpanadasLista');
+      lista.innerHTML = '';
+      productos.empanadas.forEach(emp => {
+        lista.innerHTML += `
+          <div class="flex items-center justify-between">
+            <label for="promo-emp-${emp.nombre.replace(/\s+/g, '-')}" class="text-sm">${emp.nombre}</label>
+            <input type="number" id="promo-emp-${emp.nombre.replace(/\s+/g, '-')}" name="${emp.nombre}" min="0" max="4" value="0" oninput="actualizarConteoPromoEmpanadas()" class="w-12 text-center bg-gray-700 rounded p-1">
+          </div>`;
+      });
+      seccionEmpanadas.classList.remove('hidden');
+    } else {
+      seccionEmpanadas.classList.add('hidden');
+    }
+    actualizarConteoPromoEmpanadas(); // Para setear el estado inicial del botón
+
+    // Lógica para las bebidas
+    const selectBebida = document.getElementById('promoBebida');
+    selectBebida.innerHTML = '<option value="">Selecciona una bebida</option>';
+    productos.bebidas.forEach(beb => {
+      selectBebida.innerHTML += `<option value="${beb.nombre}">${beb.nombre}</option>`;
+    });
+
+    modal.classList.remove('hidden');
+  }
+
+  function cerrarModalPromo() {
+    document.getElementById('modalPromo').classList.add('hidden');
+  }
+
+  function actualizarConteoPromoEmpanadas() {
+    const necesitaEmpanadas = document.getElementById('promoNecesitaEmpanadas').value === 'true';
+    if (!necesitaEmpanadas) {
+      document.getElementById('btnAgregarPromo').disabled = false;
+      document.getElementById('btnAgregarPromo').classList.remove('opacity-50', 'cursor-not-allowed');
+      return;
+    }
+
+    const inputs = document.querySelectorAll('#promoEmpanadasLista input[type="number"]');
+    let total = 0;
+    inputs.forEach(input => { total += parseInt(input.value) || 0; });
+    document.getElementById('promoEmpanadasConteo').textContent = total;
+
+    const btn = document.getElementById('btnAgregarPromo');
+    if (total === 4) {
+      btn.disabled = false;
+      btn.classList.remove('opacity-50', 'cursor-not-allowed');
+    } else {
+      btn.disabled = true;
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+    }
+  }
+
+  function agregarPromoPersonalizada(e) {
+    e.preventDefault();
+    const nombreBase = document.getElementById('promoNombreBase').value;
+    const precioBase = parseFloat(document.getElementById('promoPrecioBase').value);
+    const necesitaEmpanadas = document.getElementById('promoNecesitaEmpanadas').value === 'true';
+    
+    let detalles = [];
+    if (necesitaEmpanadas) {
+      const inputs = document.querySelectorAll('#promoEmpanadasLista input[type="number"]');
+      const detalleEmpanadas = Array.from(inputs).map(i => ({ cant: parseInt(i.value) || 0, nom: i.name })).filter(i => i.cant > 0);
+      detalles.push(`Empanadas: ${detalleEmpanadas.map(d => `${d.cant} ${d.nom}`).join(', ')}`);
+    }
+
+    const bebida = document.getElementById('promoBebida').value;
+    detalles.push(`Bebida: ${bebida}`);
+
+    const nombreFinal = `${nombreBase} (${detalles.join('. ')})`;
+    agregarAlCarrito(nombreFinal, precioBase);
+    showAlert(`¡'${nombreBase}' se agregó al carrito!`, 'Promo Personalizada');
+    cerrarModalPromo();
+  }
+
   // PROMO DOCENA
 
   function actualizarConteoEmpanadas() {
