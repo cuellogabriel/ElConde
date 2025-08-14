@@ -1,4 +1,15 @@
 // Lista de productos 
+const opcionesHamburguesaSandwich = [
+    { nombre: "Papas Fritas", precio: 2500 },
+    { nombre: "Huevo Frito / Plancha", precio: 1300 },
+    { nombre: "Cebolla Caramelizada", precio: 1300 },
+    { nombre: "Panceta", precio: 1300 },
+    { nombre: "Provolone", precio: 1300 },
+    { nombre: "Roquefort", precio: 1300 },
+    { nombre: "Muzzarella", precio: 1300 },
+    { nombre: "Salsa De Tomate", precio: 1300 }
+];
+
 const productos = {
   pizzas: [
     {
@@ -361,11 +372,7 @@ const productos = {
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false 
     }
   },
@@ -378,11 +385,7 @@ const productos = {
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false 
     }
   },
@@ -395,11 +398,7 @@ const productos = {
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false 
     }
   },
@@ -412,11 +411,7 @@ const productos = {
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false 
     }
   },
@@ -429,11 +424,7 @@ const productos = {
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false
     }
   },
@@ -446,11 +437,7 @@ const productos = {
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false
     }
   },
@@ -463,11 +450,7 @@ const productos = {
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false
     }
   },
@@ -480,11 +463,7 @@ const productos = {
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false
     }
   }
@@ -535,18 +514,7 @@ hamburguesas: [
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 },
-        { nombre: "Huevo Frito / Plancha", precio: 1300 },
-        { nombre: "Cebolla Caramelizada", precio: 1300 },
-        { nombre: "Panceta", precio: 1300 },
-        { nombre: "Provolone", precio: 1300 },
-        { nombre: "Roquefort", precio: 1300 },
-        { nombre: "Muzzarella", precio: 1300 },
-        { nombre: "Salsa De Tomate", precio: 1300 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false
     }
   },
@@ -558,18 +526,7 @@ hamburguesas: [
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 },
-        { nombre: "Huevo Frito / Plancha", precio: 1300 },
-        { nombre: "Cebolla Caramelizada", precio: 1300 },
-        { nombre: "Panceta", precio: 1300 },
-        { nombre: "Provolone", precio: 1300 },
-        { nombre: "Roquefort", precio: 1300 },
-        { nombre: "Muzzarella", precio: 1300 },
-        { nombre: "Salsa De Tomate", precio: 1300 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false
     }
   },
@@ -581,18 +538,7 @@ hamburguesas: [
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 },
-        { nombre: "Huevo Frito / Plancha", precio: 1300 },
-        { nombre: "Cebolla Caramelizada", precio: 1300 },
-        { nombre: "Panceta", precio: 1300 },
-        { nombre: "Provolone", precio: 1300 },
-        { nombre: "Roquefort", precio: 1300 },
-        { nombre: "Muzzarella", precio: 1300 },
-        { nombre: "Salsa De Tomate", precio: 1300 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false
     }
   },
@@ -604,18 +550,7 @@ hamburguesas: [
     ],
     opciones: {
       titulo: "Acompañamiento",
-      items: [
-        { nombre: "Papas Fritas", precio: 2500 },
-        { nombre: "Puré de Calabaza", precio: 4900 },
-        { nombre: "Ensalada", precio: 4900 },
-        { nombre: "Huevo Frito / Plancha", precio: 1300 },
-        { nombre: "Cebolla Caramelizada", precio: 1300 },
-        { nombre: "Panceta", precio: 1300 },
-        { nombre: "Provolone", precio: 1300 },
-        { nombre: "Roquefort", precio: 1300 },
-        { nombre: "Muzzarella", precio: 1300 },
-        { nombre: "Salsa De Tomate", precio: 1300 }
-      ],
+      items: opcionesHamburguesaSandwich,
       gratis: false
     }
   }
@@ -763,7 +698,7 @@ function renderProductos(id, lista) {
     html += `
       <div class="border-t border-gray-700 mt-4 pt-4">
         <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg max-w-md mx-auto">
-          <h3 class="text-base md:text-lg font-bold mb-3 text-center">🍕 Armá tu Pizza Mitad y Mitad</h3>
+          <h3 class="text-base md:text-lg font-bold mb-3 text-center text-yellow-300">🍕 Armá tu Pizza Mitad y Mitad</h3>
           <form id="formMitadMitad" class="flex flex-col gap-2 items-center" onsubmit="armarMitadMitad(event)">
             <div class="w-full flex flex-row gap-2">
               <div class="flex-1">
@@ -790,7 +725,7 @@ function renderProductos(id, lista) {
     html += `
       <div class="border-t border-gray-700 mt-4 pt-4">
         <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg max-w-2xl mx-auto">
-          <h3 class="text-base md:text-lg font-bold mb-3 text-center">🥟 Promo Docena de Empanadas</h3>
+          <h3 class="text-base md:text-lg font-bold mb-3 text-center text-yellow-300">🥟 Promo Docena de Empanadas</h3>
           <p class="text-center text-xs md:text-sm text-gray-300 mb-4">Elige 12 empanadas o más y obtén $200 de descuento en cada una.</p>
           <form id="formDocenaEmpanadas" class="flex flex-col gap-3 items-center" onsubmit="armarDocenaEmpanadas(event)">
             <div id="listaEmpanadasPromo" class="w-full grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2">
