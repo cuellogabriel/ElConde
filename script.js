@@ -235,10 +235,14 @@
       const lista = document.getElementById('promoEmpanadasLista');
       lista.innerHTML = '';
       productos.empanadas.forEach(emp => {
+        const tipoEmpanada = emp.precios[0].tipo;
+        const esEspecial = tipoEmpanada === 'Especial';
+        const costoAdicionalTexto = esEspecial ? ' <span class="text-yellow-400 text-xs">(+ $200)</span>' : '';
+
         lista.innerHTML += `
           <div class="flex items-center justify-between">
-            <label for="promo-emp-${emp.nombre.replace(/\s+/g, '-')}" class="text-sm">${emp.nombre}</label>
-            <input type="number" id="promo-emp-${emp.nombre.replace(/\s+/g, '-')}" name="${emp.nombre}" min="0" max="4" value="0" oninput="actualizarConteoPromoEmpanadas()" class="w-12 text-center bg-gray-700 rounded p-1">
+            <label for="promo-emp-${emp.nombre.replace(/\s+/g, '-')}" class="text-sm">${emp.nombre}${costoAdicionalTexto}</label>
+            <input type="number" id="promo-emp-${emp.nombre.replace(/\s+/g, '-')}" name="${emp.nombre}" data-tipo="${tipoEmpanada}" min="0" max="4" value="0" oninput="actualizarConteoPromoEmpanadas()" class="w-12 text-center bg-gray-700 rounded p-1">
           </div>`;
       });
       seccionEmpanadas.classList.remove('hidden');
@@ -287,13 +291,22 @@
   function agregarPromoPersonalizada(e) {
     e.preventDefault();
     const nombreBase = document.getElementById('promoNombreBase').value;
-    const precioBase = parseFloat(document.getElementById('promoPrecioBase').value);
+    let precioFinal = parseFloat(document.getElementById('promoPrecioBase').value);
     const necesitaEmpanadas = document.getElementById('promoNecesitaEmpanadas').value === 'true';
     
     let detalles = [];
     if (necesitaEmpanadas) {
       const inputs = document.querySelectorAll('#promoEmpanadasLista input[type="number"]');
-      const detalleEmpanadas = Array.from(inputs).map(i => ({ cant: parseInt(i.value) || 0, nom: i.name })).filter(i => i.cant > 0);
+      let costoExtraEmpanadas = 0;
+      const detalleEmpanadas = Array.from(inputs).map(input => {
+        const cantidad = parseInt(input.value) || 0;
+        if (cantidad > 0 && input.dataset.tipo === 'Especial') {
+          costoExtraEmpanadas += cantidad * 200;
+        }
+        return { cant: cantidad, nom: input.name };
+      }).filter(item => item.cant > 0);
+
+      precioFinal += costoExtraEmpanadas;
       detalles.push(`Empanadas: ${detalleEmpanadas.map(d => `${d.cant} ${d.nom}`).join(', ')}`);
     }
 
@@ -301,7 +314,7 @@
     detalles.push(`Bebida: ${bebida}`);
 
     const nombreFinal = `${nombreBase} (${detalles.join('. ')})`;
-    agregarAlCarrito(nombreFinal, precioBase);
+    agregarAlCarrito(nombreFinal, precioFinal);
     showAlert(`¡'${nombreBase}' se agregó al carrito!`, 'Promo Personalizada');
     cerrarModalPromo();
   }
