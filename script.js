@@ -156,7 +156,51 @@
     }
   }
 
-  // Slider de promociones y carga de la promo de empanadas
+  function filtrarProductos() {
+    const termino = document.getElementById('buscador').value.toLowerCase().trim();
+    const noResultados = document.getElementById('no-resultados');
+    let totalEncontradosGeneral = 0;
+
+    const categorias = document.querySelectorAll('.accordion');
+
+    categorias.forEach(categoria => {
+        const productos = categoria.querySelectorAll('.producto-item');
+        let encontradosEnCategoria = 0;
+
+        productos.forEach(producto => {
+            const nombre = producto.querySelector('.producto-nombre').textContent.toLowerCase();
+            const descripcion = producto.querySelector('.producto-descripcion')?.textContent.toLowerCase() || '';
+            
+            if (nombre.includes(termino) || descripcion.includes(termino)) {
+                producto.style.display = 'flex';
+                encontradosEnCategoria++;
+            } else {
+                producto.style.display = 'none';
+            }
+        });
+
+        if (encontradosEnCategoria > 0) {
+            categoria.style.display = 'block';
+            totalEncontradosGeneral += encontradosEnCategoria;
+            if (!categoria.classList.contains('open')) {
+                toggleAccordion(categoria.querySelector('.flex.justify-between'));
+            }
+        } else {
+            categoria.style.display = 'none';
+        }
+    });
+
+    noResultados.classList.toggle('hidden', totalEncontradosGeneral > 0 || termino === '');
+    if (termino === '') {
+        categorias.forEach(categoria => {
+            categoria.style.display = 'block';
+            const productos = categoria.querySelectorAll('.producto-item');
+            productos.forEach(p => p.style.display = 'flex');
+        });
+    }
+}
+
+  // Slider - carga de la promo empanadas
   document.addEventListener('DOMContentLoaded', () => {
     if (typeof renderPromoEmpanadas === 'function') {
       renderPromoEmpanadas();
@@ -178,10 +222,15 @@
     document.getElementById('nextSlide')?.addEventListener('click', () => moverSlide(1));
     document.getElementById('prevSlide')?.addEventListener('click', () => moverSlide(-1));
     setInterval(() => moverSlide(1), 5000);
+
+    // --- INICIO BUSCADOR ---
+    const buscador = document.getElementById('buscador');
+    if (buscador) {
+        buscador.addEventListener('input', filtrarProductos);
+    }
   });
 
   function poblarOpcionesMitadMitad() {
-    // Usaremos solo las pizzas 'Grandes' para la opción de mitad y mitad.
     const pizzasParaMitades = productos.pizzas.filter(p => p.precios.some(precio => precio.tipo === 'Grande'));
     const select1 = document.getElementById('mitad1');
     const select2 = document.getElementById('mitad2');
@@ -191,7 +240,6 @@
     let optionsHTML = '<option value="">Elige una pizza</option>';
     pizzasParaMitades.forEach(pizza => {
         const precioGrande = pizza.precios.find(p => p.tipo === 'Grande').precio;
-        // Guardamos el precio en un atributo 'data-precio' para usarlo después
         optionsHTML += `<option value="${pizza.nombre}" data-precio="${precioGrande}">${pizza.nombre}</option>`;
     });
 
@@ -223,7 +271,6 @@
     const form = document.getElementById('formPromo');
     form.reset(); // Limpiamos el formulario
 
-    // Guardamos los datos de la promo en el formulario
     document.getElementById('promoModalTitulo').textContent = `Personalizar ${nombre}`;
     document.getElementById('promoNombreBase').value = nombre;
     document.getElementById('promoPrecioBase').value = precio;
@@ -249,9 +296,9 @@
     } else {
       seccionEmpanadas.classList.add('hidden');
     }
-    actualizarConteoPromoEmpanadas(); // Para setear el estado inicial del botón
+    actualizarConteoPromoEmpanadas(); 
 
-    // Lógica para las bebidas
+    // Lógica  bebidas
     const selectBebida = document.getElementById('promoBebida');
     selectBebida.innerHTML = '<option value="">Selecciona una bebida</option>';
     productos.bebidas.forEach(beb => {
@@ -370,6 +417,73 @@
     document.getElementById('formDocenaEmpanadas').reset();
     actualizarConteoEmpanadas();
   }
+
+  // --- INICIO PERSONALIZACIÓN DE PRODUCTOS CON OPCIONES (SANDWICHES, MINUTAS, ETC) ---
+
+  function abrirModalOpciones(nombreBase, tipo, precioBase, opcionesCodificadas) {
+    const modal = document.getElementById('modalOpciones');
+    const form = modal.querySelector('form');
+    form.reset();
+
+    const opciones = JSON.parse(atob(opcionesCodificadas));
+
+    document.getElementById('modalOpcionesTitulo').textContent = `Personalizar ${nombreBase} (${tipo})`;
+    document.getElementById('opcionesNombreBase').value = nombreBase;
+    document.getElementById('opcionesPrecioBase').value = precioBase;
+    document.getElementById('opcionesTipoProducto').value = tipo;
+
+    document.getElementById('modalOpcionesSubtitulo').textContent = `Elige tus ${opciones.titulo}s`;
+    const lista = document.getElementById('modalOpcionesLista');
+    lista.innerHTML = '';
+
+    opciones.items.forEach((opt, index) => {
+      const inputType = opciones.gratis ? 'radio' : 'checkbox';
+      const inputName = opciones.gratis ? 'acompanamiento-gratis' : `opcion-${index}`;
+      const precioTexto = opciones.gratis ? '(sin cargo)' : `(+ $${opt.precio})`;
+
+      lista.innerHTML += `
+        <div class="flex items-center justify-start gap-2 bg-gray-700 p-2 rounded">
+          <input type="${inputType}" id="opcion-${index}" name="${inputName}" value="${opt.nombre}" data-precio="${opt.precio}" class="form-${inputType} h-4 w-4 text-yellow-400 bg-gray-600 border-gray-500 focus:ring-yellow-500">
+          <label for="opcion-${index}" class="text-sm">${opt.nombre} <span class="text-yellow-400 text-xs">${precioTexto}</span></label>
+        </div>
+      `;
+    });
+
+    modal.classList.remove('hidden');
+  }
+
+  function cerrarModalOpciones() {
+    document.getElementById('modalOpciones').classList.add('hidden');
+  }
+
+  function agregarProductoConOpciones(e) {
+    e.preventDefault();
+    
+    const nombreBase = document.getElementById('opcionesNombreBase').value;
+    const tipoProducto = document.getElementById('opcionesTipoProducto').value;
+    let precioFinal = parseFloat(document.getElementById('opcionesPrecioBase').value);
+
+    let nombreFinal = `${nombreBase} (${tipoProducto})`;
+    const detalles = [];
+
+    const opcionesSeleccionadas = document.querySelectorAll('#modalOpcionesLista input:checked');
+
+    opcionesSeleccionadas.forEach(opcion => {
+      const precioOpcion = parseFloat(opcion.dataset.precio);
+      precioFinal += precioOpcion;
+      detalles.push(opcion.value);
+    });
+
+    if (detalles.length > 0) {
+      const subtitulo = document.getElementById('modalOpcionesSubtitulo').textContent.replace('Elige tus ', '').replace('s', '');
+      nombreFinal += ` con ${subtitulo}: ${detalles.join(', ')}`;
+    }
+
+    agregarAlCarrito(nombreFinal, precioFinal);
+    showAlert(`'${nombreBase}' se agregó al carrito!`, 'Producto Personalizado');
+    cerrarModalOpciones();
+  }
+
 //  MODAL DE PAGO 
 
   function copiarAlPortapapeles() {
@@ -390,7 +504,6 @@
     document.getElementById('modalPago').classList.add('hidden');
     productosCarrito = [];
     actualizarCarrito();
-    // No cerramos los otros formularios desde aquí para no causar conflictos
   }
 
   // CUSTOM ALERTS 

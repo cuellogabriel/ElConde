@@ -8,7 +8,6 @@
   <title>El Conde - Delivery de Pizzas y Minutas</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://kit.fontawesome.com/9ec9c45c4a.js" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -115,6 +114,10 @@
   <div id="hamburguesas"></div>
   <div id="bebidas"></div>
   <div id="adicionales"></div>
+  <div id="no-resultados" class="text-center text-xl py-10 hidden">
+      <p class="text-3xl mb-2">😔</p>
+      <p>No se encontraron productos que coincidan con tu búsqueda.</p>
+  </div>
 </section>
 
 
@@ -205,6 +208,26 @@
     </form>
   </section>
 
+  <!-- MODAL OPCIONES DE PRODUCTO (ADICIONALES/ACOMPAÑAMIENTOS) -->
+  <section id="modalOpciones" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden z-40">
+    <form onsubmit="agregarProductoConOpciones(event)" class="bg-gray-800 p-4 md:p-6 rounded-lg shadow-lg space-y-3 w-full max-w-xs md:max-w-lg relative">
+      <button type="button" onclick="cerrarModalOpciones()" class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+      <h3 id="modalOpcionesTitulo" class="text-lg font-bold text-center text-yellow-400"></h3>
+      <input type="hidden" id="opcionesNombreBase">
+      <input type="hidden" id="opcionesPrecioBase">
+      <input type="hidden" id="opcionesTipoProducto">
+
+      <div id="opcionesContenedor" class="space-y-2">
+        <h4 id="modalOpcionesSubtitulo" class="font-semibold text-base"></h4>
+        <div id="modalOpcionesLista" class="w-full grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-sm"></div>
+      </div>
+
+      <div class="flex justify-center pt-2">
+        <button id="btnAgregarOpciones" type="submit" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-6 py-2 rounded glow-hover font-bold text-sm md:text-base">Agregar al Carrito</button>
+      </div>
+    </form>
+  </section>
+
   <!-- MODAL DE PAGO -->
   <section id="modalPago" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden z-40">
     <div class="bg-gray-800 p-6 rounded-lg shadow-lg space-y-4 w-full max-w-xs md:max-w-sm text-center">
@@ -272,5 +295,6 @@
   </div>
 </footer>
  <script src="productos.js"></script>
+ <script src="script.js"></script>
 </body>
 </html>

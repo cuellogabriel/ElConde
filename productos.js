@@ -1,6 +1,5 @@
 // Lista de productos 
 const opcionesHamburguesaSandwich = [
-    { nombre: "Papas Fritas", precio: 2500 },
     { nombre: "Huevo Frito / Plancha", precio: 1300 },
     { nombre: "Cebolla Caramelizada", precio: 1300 },
     { nombre: "Panceta", precio: 1300 },
@@ -371,7 +370,7 @@ const productos = {
       { tipo: "30CM", precio: 11800 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false 
     }
@@ -384,7 +383,7 @@ const productos = {
       { tipo: "30CM", precio: 11800 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false 
     }
@@ -397,7 +396,7 @@ const productos = {
       { tipo: "30CM", precio: 11800 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false 
     }
@@ -410,7 +409,7 @@ const productos = {
       { tipo: "30CM", precio: 11800 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false 
     }
@@ -423,7 +422,7 @@ const productos = {
       { tipo: "30CM", precio: 13700 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false
     }
@@ -436,7 +435,7 @@ const productos = {
       { tipo: "30CM", precio: 13700 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false
     }
@@ -449,7 +448,7 @@ const productos = {
       { tipo: "30CM", precio: 13700 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false
     }
@@ -462,7 +461,7 @@ const productos = {
       { tipo: "30CM", precio: 13700 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false
     }
@@ -481,7 +480,7 @@ minutas: [
       items: [
         { nombre: "Papas Fritas", precio: 0 },
         { nombre: "Puré de Calabaza", precio: 0 },
-        { nombre: "Ensalada", precio: 0 }
+        { nombre: "Ensalada Mixta", precio: 0 }
       ],
       gratis: true 
     }
@@ -498,7 +497,7 @@ minutas: [
       items: [
         { nombre: "Papas Fritas", precio: 0 },
         { nombre: "Puré de Calabaza", precio: 0 },
-        { nombre: "Ensalada", precio: 0 }
+        { nombre: "Ensalada Mixta", precio: 0 }
       ],
       gratis: true 
     }
@@ -513,7 +512,7 @@ hamburguesas: [
       { tipo: "Simple", precio: 8900 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false
     }
@@ -525,7 +524,7 @@ hamburguesas: [
       { tipo: "Simple", precio: 10800 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false
     }
@@ -537,7 +536,7 @@ hamburguesas: [
       { tipo: "Simple", precio: 10800 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false
     }
@@ -549,7 +548,7 @@ hamburguesas: [
       { tipo: "Completa", precio: 8900 }
     ],
     opciones: {
-      titulo: "Acompañamiento",
+      titulo: "Adicional",
       items: opcionesHamburguesaSandwich,
       gratis: false
     }
@@ -666,34 +665,25 @@ function renderProductos(id, lista) {
 
  lista.forEach(prod => {
   html += `
-    <div class="mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
+    <div class="producto-item mb-2 md:mb-4 flex flex-col md:flex-row items-start justify-between gap-2">
       <div class="flex-1">
-        <p class="font-bold text-sm md:text-base">${prod.nombre}</p>
-        <p class="text-xs md:text-sm text-gray-300 mt-1">${prod.descripcion}</p>
-        ${prod.opciones ? `
-          <div class="mt-2 flex items-center gap-2">
-            <label class="block font-semibold text-xs md:text-sm whitespace-nowrap">${prod.opciones.titulo}:</label>
-            <select class="w-48 p-1 rounded text-white bg-gray-700 border border-gray-500 text-xs md:text-sm acomp-select" data-producto="${prod.nombre}" data-gratis="${prod.opciones.gratis}">
-              <option value="">Sin acompañamiento</option>
-              ${prod.opciones.items.map(opt => `
-                <option value="${opt.nombre}" data-precio="${opt.precio}">${opt.nombre} ${prod.opciones.gratis ? '(sin cargo)' : `(+ $${opt.precio})`}</option>
-              `).join('')}
-            </select>
-          </div>
-        ` : ''}
+        <p class="producto-nombre font-bold text-sm md:text-base">${prod.nombre}</p>
+        <p class="producto-descripcion text-xs md:text-sm text-gray-300 mt-1">${prod.descripcion || ''}</p>
       </div>
       <div class="flex flex-row items-center gap-1 md:gap-2 ml-0 md:ml-4">
-        ${prod.precios.map(p => `
-          <button onclick="agregarConAcomp(this, '${prod.nombre} (${p.tipo})', ${p.precio})" class="glow-btn glow-hover px-2 py-1 bg-slate-900 text-yellow-300 border border-yellow-400 rounded text-xs md:text-base whitespace-nowrap">
+        ${prod.precios.map(p => {
+          const onclickAction = prod.opciones 
+            ? `abrirModalOpciones('${prod.nombre}', '${p.tipo}', ${p.precio}, '${btoa(JSON.stringify(prod.opciones))}')`
+            : `agregarAlCarrito('${prod.nombre} (${p.tipo})', ${p.precio})`;
+          return `<button onclick="${onclickAction}" class="glow-btn glow-hover px-2 py-1 bg-slate-900 text-yellow-300 border border-yellow-400 rounded text-xs md:text-base whitespace-nowrap">
             ${p.tipo} <span class="font-semibold">$${p.precio}</span>
-          </button>
-        `).join('')}
+          </button>`;
+        }).join('')}
       </div>
     </div>
   `;
 });
 
-  // Si es la sección de pizzas, agregar el formulario de mitad y mitad al final.
   if (id === 'pizzas') {
     html += `
       <div class="border-t border-gray-700 mt-4 pt-4">
@@ -740,21 +730,6 @@ function renderProductos(id, lista) {
 
   html += `</div></div>`;
   contenedor.innerHTML = html;
-}
-
-function agregarConAcomp(btn, nombre, precioBase) {
-  const parent = btn.closest('.mb-2, .md\\:mb-4');
-  const select = parent.querySelector('.acomp-select');
-  let nombreFinal = nombre;
-  let precioFinal = precioBase;
-  if (select && select.value) {
-    const opcion = select.options[select.selectedIndex];
-    const precioAcomp = Number(opcion.getAttribute('data-precio'));
-    const gratis = select.getAttribute('data-gratis') === "true";
-    nombreFinal += ` + ${select.value}`;
-    if (!gratis) precioFinal += precioAcomp;
-  }
-  agregarAlCarrito(nombreFinal, precioFinal);
 }
 
 renderProductos('pizzas', productos.pizzas);
