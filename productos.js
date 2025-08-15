@@ -341,30 +341,30 @@ const productos = {
       nombre: "Napolitano",
       descripcion: "Muzzarella , Cubos De Tomate , Albahaca , Ajo , Perejil y Aceite De Oliva",
       precios: [
-        { tipo: "Unico", precio: 23000 }
+        { tipo: "", precio: 23000 }
       ]
     },
      {
       nombre: "Calabresa",
       descripcion: "Muzzarella , Longaniza , Cubos De Tomate y Aceite De Oliva",
       precios: [
-        {  tipo: "Unico", precio: 23000 }
+        {  tipo: "", precio: 23000 }
       ]
     },
      {
       nombre: "Champigñones",
       descripcion: "Muzzarella , Jamon , Champigñones , Provenzal y Aceite De Oliva",
       precios: [
-        { tipo: "Unico", precio: 23000 }
+        { tipo: "", precio: 23000 }
       ]
     },
      {
       nombre: "El Conde",
       descripcion: "Muzzarella , Jamon , Morron , Palmito ,Huevo Duro , Salsa Golf , Ajo , Perejil y Aceite De Oliva",
       precios: [
-        { tipo: "Unico", precio: 24700 }
+        { tipo: "", precio: 24700 }
       ]
-    },
+    }
   ],
 
   sandwiches: [
@@ -475,15 +475,98 @@ minutas: [
       ],
       gratis: true 
     }
-  }
- 
+  },
+   {
+      nombre: "Tarta Tricolor",
+      descripcion: "Acelga , Calabaza y Muzzarella",
+      precios: [
+        { tipo: "", precio: 8700 }
+      ]
+    },
+     {
+      nombre: "Tarta Champigñones",
+      descripcion: "Muzzarella , Jamon y Champigñones",
+      precios: [
+        { tipo: "", precio: 8700 }
+      ]
+    },
+     {
+      nombre: "Tarta Jamon y Anana",
+      descripcion: "Muzzarella , Jamon y Anana",
+      precios: [
+        { tipo: "", precio: 8700 }
+      ]
+    },
+     {
+      nombre: "Tarta Capresse",
+      descripcion: "Muzzarella , Cubos De Tomate y Albahaca",
+      precios: [
+        { tipo: "", precio: 8700 }
+      ]
+    },
+     {
+      nombre: "Tarta De Palmito",
+      descripcion: "Muzzarella , Jamon , Palmito y Salsa Golf",
+      precios: [
+        { tipo: "", precio: 8700 }
+      ]
+    },
+     {
+      nombre: "Tortilla De Papa",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 8700 }
+      ]
+    },
+     {
+      nombre: "Tortilla De Acelga",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 8700 }
+      ]
+    },
+     {
+      nombre: "Papas Fritas Grandes",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 6100 }
+      ]
+    }, {
+      nombre: "Papas Fritas Medianas",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 5300 }
+      ]
+    },
+     {
+      nombre: "Papas Fritas Guarnicion",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 4900 }
+      ]
+    },
+     {
+      nombre: "Pure De Calabaza",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 4900 }
+      ]
+    },
+     {
+      nombre: "Ensalada Mixta",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 4900 }
+      ]
+    }
 ],
+
 hamburguesas: [
   {
     nombre: "Hamburguesa Sola",
     descripcion: "Medallon De Carne Seleccionada De 200 Gramos",
     precios: [
-      { tipo: "Simple", precio: 8900 }
+      { tipo: "", precio: 8900 }
     ],
     opciones: opcionesAdicionales
   },
@@ -491,7 +574,7 @@ hamburguesas: [
     nombre: "Hamburguesa Lechuga y Tomate",
     descripcion: "Medallon De Carne Seleccionada De 200 Gramos",
     precios: [
-      { tipo: "Simple", precio: 10800 }
+      { tipo: "", precio: 10800 }
     ],
     opciones: opcionesAdicionales
   },
@@ -499,7 +582,7 @@ hamburguesas: [
     nombre: "Hamburguesa Jamon y Queso",
     descripcion: "Medallon De Carne Seleccionada De 200 Gramos",
     precios: [
-      { tipo: "Simple", precio: 10800 }
+      { tipo: "", precio: 10800 }
     ],
     opciones: opcionesAdicionales
   },
@@ -507,7 +590,7 @@ hamburguesas: [
     nombre: "Hamburguesa Completa",
     descripcion: "Medallon De Carne Seleccionada De 200 Gramos , Jamon , Queso , Lechuga y Tomate " ,
      precios: [
-      { tipo: "Completa", precio: 11800 } // Precio corregido, probablemente era un error
+      { tipo: "", precio: 11800 } // Precio corregido, probablemente era un error
     ],
     opciones: opcionesAdicionales
   }
@@ -574,36 +657,87 @@ hamburguesas: [
 
   adicionales: [
     {
-      nombre: "Porción de Fainá",
-      descripcion: "Porción de fainá tradicional.",
+      nombre: "Huevo Frito / Plancha",
+      descripcion: "",
       precios: [
-        { tipo: "Unidad", precio: 500 }
+        { tipo: "", precio: 1300 }
       ]
     },
     {
-      nombre: "Salsa Extra",
-      descripcion: "Salsa de tomate casera.",
+      nombre: "Cebolla Caramelizada",
+      descripcion: "",
       precios: [
-        { tipo: "Unidad", precio: 300 }
+        { tipo: "", precio: 1300 }
+      ]
+    },
+    {
+      nombre: "Panceta",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 1300 }
+      ]
+    },
+    {
+      nombre: "Provolone",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 1300 }
+      ]
+    },
+    {
+      nombre: "Roquefort",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 1300 }
+      ]
+    },
+    {
+      nombre: "Muzzarella",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 1300 }
+      ]
+    },
+    {
+      nombre: "Salsa De Tomate",
+      descripcion: "",
+      precios: [
+        { tipo: "", precio: 1300 }
       ]
     }
   ],
 
   fugazzetas: [
     {
-      nombre: "Fugazzeta Rellena",
-      descripcion: "Muzzarella, jamón, cebolla, orégano y aceitunas.",
+      nombre: "Fugazzeta Clasica",
+      descripcion: "Muzzarella, Jamón, Cebolla, Ajo , Perejil , Orégano y Aceitunas.",
       precios: [
-        { tipo: "Grande", precio: 19000 },
-        { tipo: "Chica", precio: 17000 }
+        { tipo: "Grande", precio: 19300 },
+        { tipo: "Chica", precio: 17900 }
       ]
     },
     {
-      nombre: "Fugazzeta Rellena con Morrones",
-      descripcion: "Muzzarella, jamón, morrones, cebolla, orégano y aceitunas.",
+      nombre: "Fugazzeta Cebolla Y Jamon",
+      descripcion: "Muzzarella, Jamón, Cebolla, Jamon , Ajo , Perejil , Orégano , Aceite De Oliva y Aceitunas.",
       precios: [
-        { tipo: "Grande", precio: 20500 },
-        { tipo: "Chica", precio: 18500 }
+        { tipo: "Grande", precio: 21800 },
+        { tipo: "Chica", precio: 20300 }
+      ]
+    },
+    {
+      nombre: "Fugazzeta Cebolla , Jamon y Morrones",
+      descripcion: "Muzzarella, Jamón, Cebolla, Jamon, Morron , Ajo , Perejil , Orégano , Aceite De Oliva y Aceitunas.",
+      precios: [
+        { tipo: "Grande", precio: 23500 },
+        { tipo: "Chica", precio: 22200 }
+      ]
+    },
+    {
+      nombre: "Fugazzeta Cebolla , Jamon , Morrones y Huevo Duro",
+      descripcion: "Muzzarella, Jamón, Cebolla, Jamon, Morron , Ajo , Perejil , Orégano , Huevo Duro , Aceite De Oliva y Aceitunas.",
+      precios: [
+        { tipo: "Grande", precio: 24500 },
+        { tipo: "Chica", precio: 23100 }
       ]
     }
   ],
