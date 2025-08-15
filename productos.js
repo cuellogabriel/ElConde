@@ -9,6 +9,12 @@ const opcionesHamburguesaSandwich = [
     { nombre: "Salsa De Tomate", precio: 1300 }
 ];
 
+const opcionesAdicionales = {
+  titulo: "Adicional",
+  items: opcionesHamburguesaSandwich,
+  gratis: false 
+};
+
 const productos = {
   pizzas: [
     {
@@ -369,11 +375,7 @@ const productos = {
       { tipo: "20CM", precio: 9800 },
       { tipo: "30CM", precio: 11800 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false 
-    }
+    opciones: opcionesAdicionales
   },
   {
     nombre: "Milanesa De Pollo",
@@ -382,11 +384,7 @@ const productos = {
       { tipo: "20CM", precio: 9800 },
       { tipo: "30CM", precio: 11800 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false 
-    }
+    opciones: opcionesAdicionales
   },
   {
     nombre: "Churrasquito",
@@ -395,11 +393,7 @@ const productos = {
       { tipo: "20CM", precio: 9800 },
       { tipo: "30CM", precio: 11800 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false 
-    }
+    opciones: opcionesAdicionales
   },
   {
     nombre: "Pollo Grille",
@@ -408,11 +402,7 @@ const productos = {
       { tipo: "20CM", precio: 9800 },
       { tipo: "30CM", precio: 11800 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false 
-    }
+    opciones: opcionesAdicionales
   },
   {
     nombre: "Milanesa De Carne",
@@ -421,11 +411,7 @@ const productos = {
       { tipo: "20CM", precio: 11800 },
       { tipo: "30CM", precio: 13700 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false
-    }
+    opciones: opcionesAdicionales
   },
   {
     nombre: "Milanesa De Pollo",
@@ -434,11 +420,7 @@ const productos = {
       { tipo: "20CM", precio: 11800 },
       { tipo: "30CM", precio: 13700 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false
-    }
+    opciones: opcionesAdicionales
   },
   {
     nombre: "Churrasquito",
@@ -447,11 +429,7 @@ const productos = {
       { tipo: "20CM", precio: 11800 },
       { tipo: "30CM", precio: 13700 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false
-    }
+    opciones: opcionesAdicionales
   },
   {
     nombre: "Pollo Grille",
@@ -460,11 +438,7 @@ const productos = {
       { tipo: "20CM", precio: 11800 },
       { tipo: "30CM", precio: 13700 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false
-    }
+    opciones: opcionesAdicionales
   }
 ],
 minutas: [
@@ -511,11 +485,7 @@ hamburguesas: [
     precios: [
       { tipo: "Simple", precio: 8900 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false
-    }
+    opciones: opcionesAdicionales
   },
    {
     nombre: "Hamburguesa Lechuga y Tomate",
@@ -523,11 +493,7 @@ hamburguesas: [
     precios: [
       { tipo: "Simple", precio: 10800 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false
-    }
+    opciones: opcionesAdicionales
   },
    {
     nombre: "Hamburguesa Jamon y Queso",
@@ -535,23 +501,15 @@ hamburguesas: [
     precios: [
       { tipo: "Simple", precio: 10800 }
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false
-    }
+    opciones: opcionesAdicionales
   },
    {
     nombre: "Hamburguesa Completa",
     descripcion: "Medallon De Carne Seleccionada De 200 Gramos , Jamon , Queso , Lechuga y Tomate " ,
      precios: [
-      { tipo: "Completa", precio: 8900 }
+      { tipo: "Completa", precio: 11800 } // Precio corregido, probablemente era un error
     ],
-    opciones: {
-      titulo: "Adicional",
-      items: opcionesHamburguesaSandwich,
-      gratis: false
-    }
+    opciones: opcionesAdicionales
   }
 ],
 

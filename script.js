@@ -185,14 +185,16 @@
     const categorias = document.querySelectorAll('.accordion');
 
     categorias.forEach(categoria => {
+        const nombreCategoria = categoria.querySelector('h2').textContent.toLowerCase();
         const productos = categoria.querySelectorAll('.producto-item');
         let encontradosEnCategoria = 0;
 
         productos.forEach(producto => {
             const nombre = producto.querySelector('.producto-nombre').textContent.toLowerCase();
             const descripcion = producto.querySelector('.producto-descripcion')?.textContent.toLowerCase() || '';
-            
-            if (nombre.includes(termino) || descripcion.includes(termino)) {
+
+            // Ahora también busca en el nombre de la categoría (ej: "pizza" en "pizzas")
+            if (nombre.includes(termino) || descripcion.includes(termino) || nombreCategoria.startsWith(termino)) {
                 producto.style.display = 'flex';
                 encontradosEnCategoria++;
             } else {
@@ -203,8 +205,11 @@
         if (encontradosEnCategoria > 0) {
             categoria.style.display = 'block';
             totalEncontradosGeneral += encontradosEnCategoria;
+            // FIX: En lugar de 'toggle', nos aseguramos de que esté abierto.
+            // Esto evita que se cierre una categoría que el usuario ya tenía abierta.
             if (!categoria.classList.contains('open')) {
-                toggleAccordion(categoria.querySelector('.flex.justify-between'));
+                categoria.classList.add('open');
+                categoria.querySelector('span').textContent = '-';
             }
         } else {
             categoria.style.display = 'none';
