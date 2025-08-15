@@ -176,6 +176,15 @@
         <option value="MercadoPago">MercadoPago</option>
         <option value="Tarjeta">Tarjeta</option>
       </select>
+      <!-- OPCIONES DE TARJETAS -->
+      <div id="opcionesTarjeta" class="hidden w-full space-y-2">
+        <select id="tipoTarjeta" class="w-full p-2 rounded text-black text-xs md:text-base">
+          <option value="">Seleccione tipo de tarjeta</option>
+          <option value="Debito">Débito</option>
+          <option value="Credito">Crédito (Recargo 10%)</option>
+        </select>
+        <p id="avisoRecargo" class="text-yellow-400 text-xs text-center hidden">Se aplicará un recargo del 10% al total del pedido.</p>
+      </div>
       <div class="flex justify-center pt-2">
         <button type="submit" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-6 py-2 rounded glow-hover font-bold text-sm md:text-base">Confirmar Pedido</button>
       </div>
@@ -208,7 +217,7 @@
     </form>
   </section>
 
-  <!-- MODAL OPCIONES DE PRODUCTO (ADICIONALES/ACOMPAÑAMIENTOS) -->
+  <!-- MODAL OPCIONES  (ADICIONALES/ACOMPAÑAMIENTOS) -->
   <section id="modalOpciones" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden z-40">
     <form onsubmit="agregarProductoConOpciones(event)" class="bg-gray-800 p-4 md:p-6 rounded-lg shadow-lg space-y-3 w-full max-w-xs md:max-w-lg relative">
       <button type="button" onclick="cerrarModalOpciones()" class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
@@ -273,7 +282,7 @@
         <h4 class="font-semibold mt-3">⏰ Horarios</h4>
         <p>Miercoles a Lunes: 19:30hs a 00hs</p>
       </div>
-      <!-- Contacto (oculto en mobile, visible en desktop) -->
+      <!-- Contacto (oculto en mobile) -->
       <div class="hidden md:block">
         <h4 class="font-semibold mb-2">📍 Contacto</h4>
         <p>Dirección: Gral Lucio Mansilla 2782</p>
@@ -281,7 +290,7 @@
         <a href="https://wa.me/541134075054" class="text-green-400 hover:underline">WhatsApp Directo</a>
         <p class="mt-2 italic">Desde 1994</p>
       </div>
-      <!-- Contacto (visible solo en mobile, ocupa las dos columnas abajo) -->
+      <!-- Contacto (oculto en desktop) -->
       <div class="col-span-2 md:hidden">
         <div class="border-t border-gray-700 mt-4 pt-4">
           <h4 class="font-semibold mb-2">📍 Contacto</h4>

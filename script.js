@@ -127,11 +127,32 @@
     const nombre = document.getElementById('nombreRetiro').value;
     const telefono = document.getElementById('telefonoRetiro').value;
     const pago = document.getElementById('pagoRetiro').value;
-
+    
     const productosTexto = productosCarrito.map(p => `• ${p.cantidad} × ${p.nombre} - $${p.precio * p.cantidad}`).join('\n');
     const total = productosCarrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
 
-    const mensaje = encodeURIComponent(`🛒 Pedido para RETIRAR EN LOCAL\nCliente: ${nombre}\nTel: ${telefono}\nPago: ${pago}\n\nProductos:\n${productosTexto}\n\nTotal: $${total}`);
+    let pagoFinalTexto = pago;
+    let totalFinal = total;
+    let mensajeRecargo = '';
+
+    if (pago === 'Tarjeta') {
+      const tipoTarjeta = document.getElementById('tipoTarjeta').value;
+      if (!tipoTarjeta) {
+        showAlert('Por favor, selecciona si el pago es con Crédito o Débito.', 'Falta Información');
+        return; 
+      }
+
+      if (tipoTarjeta === 'Credito') {
+        const recargo = total * 0.10;
+        totalFinal += recargo;
+        pagoFinalTexto = 'Tarjeta de Crédito';
+        mensajeRecargo = `\nRecargo 10%: $${recargo.toFixed(2)}`;
+      } else {
+        pagoFinalTexto = 'Tarjeta de Débito';
+      }
+    }
+
+    const mensaje = encodeURIComponent(`🛒 Pedido para RETIRAR EN LOCAL\nCliente: ${nombre}\nTel: ${telefono}\nPago: ${pagoFinalTexto}\n\nProductos:\n${productosTexto}${mensajeRecargo}\n\nTotal Final: $${totalFinal.toFixed(2)}`);
     window.open(`https://wa.me/541160486366?text=${mensaje}`, '_blank');
 
     const modal = document.getElementById('modalPago');
@@ -228,6 +249,29 @@
     if (buscador) {
         buscador.addEventListener('input', filtrarProductos);
     }
+
+    // Tarjetas
+    const pagoRetiroSelect = document.getElementById('pagoRetiro');
+    const opcionesTarjetaDiv = document.getElementById('opcionesTarjeta');
+    const tipoTarjetaSelect = document.getElementById('tipoTarjeta');
+    const avisoRecargoP = document.getElementById('avisoRecargo');
+
+    pagoRetiroSelect?.addEventListener('change', () => {
+      if (pagoRetiroSelect.value === 'Tarjeta') {
+        opcionesTarjetaDiv.classList.remove('hidden');
+        tipoTarjetaSelect.required = true;
+      } else {
+        opcionesTarjetaDiv.classList.add('hidden');
+        tipoTarjetaSelect.required = false;
+        tipoTarjetaSelect.value = '';
+        avisoRecargoP.classList.add('hidden');
+      }
+    });
+
+    tipoTarjetaSelect?.addEventListener('change', () => {
+      avisoRecargoP.classList.toggle('hidden', tipoTarjetaSelect.value !== 'Credito');
+    });
+
   });
 
   function poblarOpcionesMitadMitad() {
@@ -264,19 +308,19 @@
     }
   }
 
-  // --- INICIO PERSONALIZACIÓN DE PROMOS ---
+  // Personalizacion promos
 
   function abrirModalPromo(nombre, precio, necesitaEmpanadas) {
     const modal = document.getElementById('modalPromo');
     const form = document.getElementById('formPromo');
-    form.reset(); // Limpiamos el formulario
+    form.reset(); 
 
     document.getElementById('promoModalTitulo').textContent = `Personalizar ${nombre}`;
     document.getElementById('promoNombreBase').value = nombre;
     document.getElementById('promoPrecioBase').value = precio;
     document.getElementById('promoNecesitaEmpanadas').value = necesitaEmpanadas;
 
-    // Lógica para las empanadas
+    // Empanadas 
     const seccionEmpanadas = document.getElementById('promoEmpanadasSeleccion');
     if (necesitaEmpanadas) {
       const lista = document.getElementById('promoEmpanadasLista');
@@ -298,7 +342,7 @@
     }
     actualizarConteoPromoEmpanadas(); 
 
-    // Lógica  bebidas
+    // Bebidas
     const selectBebida = document.getElementById('promoBebida');
     selectBebida.innerHTML = '<option value="">Selecciona una bebida</option>';
     productos.bebidas.forEach(beb => {
@@ -366,7 +410,7 @@
     cerrarModalPromo();
   }
 
-  // PROMO DOCENA
+  // Promo Docena
 
   function actualizarConteoEmpanadas() {
     const inputs = document.querySelectorAll('#listaEmpanadasPromo input[type="number"]');
@@ -418,7 +462,7 @@
     actualizarConteoEmpanadas();
   }
 
-  // --- INICIO PERSONALIZACIÓN DE PRODUCTOS CON OPCIONES (SANDWICHES, MINUTAS, ETC) ---
+  // Sandwichs y minutas
 
   function abrirModalOpciones(nombreBase, tipo, precioBase, opcionesCodificadas) {
     const modal = document.getElementById('modalOpciones');
@@ -484,7 +528,7 @@
     cerrarModalOpciones();
   }
 
-//  MODAL DE PAGO 
+//  Modal de pago
 
   function copiarAlPortapapeles() {
     const dato = document.getElementById('modalPagoDato').textContent;
@@ -506,7 +550,7 @@
     actualizarCarrito();
   }
 
-  // CUSTOM ALERTS 
+  // Custom Alerts
   
   function showAlert(message, title = 'Aviso') {
     const modal = document.getElementById('customAlertModal');
