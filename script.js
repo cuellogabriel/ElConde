@@ -273,7 +273,7 @@
       avisoRecargoP.classList.toggle('hidden', tipoTarjetaSelect.value !== 'Credito');
     });
 
-    // --- INICIO LÓGICA SLIDER PRODUCTOS ---
+    // --- SLIDER PRODUCTOS ---
     const carousel = document.querySelector('.carousel');
     if (carousel) {
       const prevButton = document.getElementById('prevProduct');
