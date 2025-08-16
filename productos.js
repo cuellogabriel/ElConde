@@ -748,10 +748,10 @@ hamburguesas: [
 // Función para renderizar productos
 function renderProductos(id, lista) {
   const contenedor = document.getElementById(id);
-  let html = `<div class="accordion border-t border-yellow-500 py-2 md:py-4 open">
+  let html = `<div class="accordion border-t border-yellow-500 py-2 md:py-4">
     <div class="flex justify-between items-center cursor-pointer" onclick="toggleAccordion(this)">
       <h2 class="text-base md:text-xl font-semibold text-yellow-400">${id.charAt(0).toUpperCase() + id.slice(1)}</h2>
-      <span class="text-base md:text-xl">-</span>
+      <span class="text-base md:text-xl">+</span>
     </div>
     <div class="accordion-content mt-2">`;
 
@@ -853,3 +853,14 @@ function renderPromoEmpanadas() {
   });
   contenedor.innerHTML = html;
 }
+
+// Llamadas iniciales
+renderProductos('pizzas', productos.pizzas);
+renderProductos('empanadas', productos.empanadas);
+renderProductos('calzones', productos.calzones);
+renderProductos('sandwiches', productos.sandwiches);
+renderProductos('minutas', productos.minutas);
+renderProductos('hamburguesas', productos.hamburguesas);
+renderProductos('bebidas', productos.bebidas);
+renderProductos('adicionales', productos.adicionales);
+renderProductos('fugazzetas', productos.fugazzetas);

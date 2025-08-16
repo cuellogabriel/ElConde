@@ -273,6 +273,42 @@
       avisoRecargoP.classList.toggle('hidden', tipoTarjetaSelect.value !== 'Credito');
     });
 
+    // --- INICIO LÓGICA SLIDER PRODUCTOS ---
+    const carousel = document.querySelector('.carousel');
+    if (carousel) {
+      const prevButton = document.getElementById('prevProduct');
+      const nextButton = document.getElementById('nextProduct');
+      let selectedIndex = 0;
+
+      function rotateCarousel() {
+        const cells = carousel.querySelectorAll('.carousel-cell');
+        const cellCount = cells.length;
+        if (cellCount === 0) return;
+        
+        const theta = 360 / cellCount;
+        const radius = Math.round((250 / 2) / Math.tan(Math.PI / cellCount));
+        
+        cells.forEach((cell, i) => {
+          const cellAngle = theta * i;
+          cell.style.transform = `rotateY(${cellAngle}deg) translateZ(${radius}px)`;
+        });
+
+        const rotation = Math.round(selectedIndex / cellCount * -360);
+        carousel.style.transform = `translateZ(-${radius}px) rotateY(${rotation}deg)`;
+      }
+
+      prevButton.addEventListener('click', () => {
+        selectedIndex--;
+        rotateCarousel();
+      });
+
+      nextButton.addEventListener('click', () => {
+        selectedIndex++;
+        rotateCarousel();
+      });
+
+      rotateCarousel(); // Posición inicial
+    }
   });
 
   function poblarOpcionesMitadMitad() {
