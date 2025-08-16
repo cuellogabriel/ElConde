@@ -192,8 +192,6 @@
         productos.forEach(producto => {
             const nombre = producto.querySelector('.producto-nombre').textContent.toLowerCase();
             const descripcion = producto.querySelector('.producto-descripcion')?.textContent.toLowerCase() || '';
-
-            // Ahora también busca en el nombre de la categoría (ej: "pizza" en "pizzas")
             if (nombre.includes(termino) || descripcion.includes(termino) || nombreCategoria.startsWith(termino)) {
                 producto.style.display = 'flex';
                 encontradosEnCategoria++;
@@ -205,8 +203,6 @@
         if (encontradosEnCategoria > 0) {
             categoria.style.display = 'block';
             totalEncontradosGeneral += encontradosEnCategoria;
-            // FIX: En lugar de 'toggle', nos aseguramos de que esté abierto.
-            // Esto evita que se cierre una categoría que el usuario ya tenía abierta.
             if (!categoria.classList.contains('open')) {
                 categoria.classList.add('open');
                 categoria.querySelector('span').textContent = '-';
@@ -481,7 +477,7 @@
     document.getElementById('opcionesPrecioBase').value = precioBase;
     document.getElementById('opcionesTipoProducto').value = tipo;
 
-    document.getElementById('modalOpcionesSubtitulo').textContent = `Elige tus ${opciones.titulo}s`;
+    document.getElementById('modalOpcionesSubtitulo').textContent = `Elige tus ${opciones.titulo}es`;
     const lista = document.getElementById('modalOpcionesLista');
     lista.innerHTML = '';
 

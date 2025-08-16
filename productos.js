@@ -372,8 +372,8 @@ const productos = {
     nombre: "Milanesa De Carne",
     descripcion: "Simple , Pan De Pizza",
     precios: [
-      { tipo: "20CM", precio: 9800 },
-      { tipo: "30CM", precio: 11800 }
+      { tipo: "20cm", precio: 9800 },
+      { tipo: "30cm", precio: 11800 }
     ],
     opciones: opcionesAdicionales
   },
@@ -381,8 +381,8 @@ const productos = {
     nombre: "Milanesa De Pollo",
     descripcion: "Simple , Pan De Pizza",
     precios: [
-      { tipo: "20CM", precio: 9800 },
-      { tipo: "30CM", precio: 11800 }
+      { tipo: "20cm", precio: 9800 },
+      { tipo: "30cm", precio: 11800 }
     ],
     opciones: opcionesAdicionales
   },
@@ -390,8 +390,8 @@ const productos = {
     nombre: "Churrasquito",
     descripcion: "Simple , Pan De Pizza",
     precios: [
-      { tipo: "20CM", precio: 9800 },
-      { tipo: "30CM", precio: 11800 }
+      { tipo: "20cm", precio: 9800 },
+      { tipo: "30cm", precio: 11800 }
     ],
     opciones: opcionesAdicionales
   },
@@ -399,8 +399,8 @@ const productos = {
     nombre: "Pollo Grille",
     descripcion: "Simple , Pan De Pizza",
     precios: [
-      { tipo: "20CM", precio: 9800 },
-      { tipo: "30CM", precio: 11800 }
+      { tipo: "20cm", precio: 9800 },
+      { tipo: "30cm", precio: 11800 }
     ],
     opciones: opcionesAdicionales
   },
@@ -408,8 +408,8 @@ const productos = {
     nombre: "Milanesa De Carne",
     descripcion: "Completo , Pan De Pizza , Lechuga , Tomate , Muzzarella , Jamon.",
     precios: [
-      { tipo: "20CM", precio: 11800 },
-      { tipo: "30CM", precio: 13700 }
+      { tipo: "20cm", precio: 11800 },
+      { tipo: "30cm", precio: 13700 }
     ],
     opciones: opcionesAdicionales
   },
@@ -417,8 +417,8 @@ const productos = {
     nombre: "Milanesa De Pollo",
     descripcion: "Completo , Pan De Pizza , Lechuga , Tomate , Muzzarella , Jamon",
     precios: [
-      { tipo: "20CM", precio: 11800 },
-      { tipo: "30CM", precio: 13700 }
+      { tipo: "20cm", precio: 11800 },
+      { tipo: "30cm", precio: 13700 }
     ],
     opciones: opcionesAdicionales
   },
@@ -426,8 +426,8 @@ const productos = {
     nombre: "Churrasquito",
     descripcion: "Completo , Pan De Pizza , Lechuga , Tomate , Muzzarella , Jamon",
     precios: [
-      { tipo: "20CM", precio: 11800 },
-      { tipo: "30CM", precio: 13700 }
+      { tipo: "20cm", precio: 11800 },
+      { tipo: "30cm", precio: 13700 }
     ],
     opciones: opcionesAdicionales
   },
@@ -435,8 +435,8 @@ const productos = {
     nombre: "Pollo Grille",
     descripcion: "Completo , Pan De Pizza , Lechuga , Tomate , Muzzarella , Jamon",
     precios: [
-      { tipo: "20CM", precio: 11800 },
-      { tipo: "30CM", precio: 13700 }
+      { tipo: "20cm", precio: 11800 },
+      { tipo: "30cm", precio: 13700 }
     ],
     opciones: opcionesAdicionales
   }
