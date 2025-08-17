@@ -286,8 +286,9 @@
         if (cellCount === 0) return;
         
         const theta = 360 / cellCount;
-        const radius = Math.round((250 / 2) / Math.tan(Math.PI / cellCount));
-        
+        const cellWidth = carousel.offsetWidth;
+        const radius = Math.round((cellWidth / 2) / Math.tan(Math.PI / cellCount));
+
         cells.forEach((cell, i) => {
           const cellAngle = theta * i;
           cell.style.transform = `rotateY(${cellAngle}deg) translateZ(${radius}px)`;
