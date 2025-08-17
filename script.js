@@ -161,7 +161,7 @@
 
     if (pago === 'Transferencia') {
       modalTitulo.textContent = 'Pago por Transferencia';
-      modalDato.textContent = '0000003100067553675592'; 
+      modalDato.textContent = 'elcondepizza.mp'; 
       modal.classList.remove('hidden');
       closeFormularioRetiro();
     } else if (pago === 'MercadoPago') {
