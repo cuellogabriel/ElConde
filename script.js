@@ -228,7 +228,7 @@
       renderPromoEmpanadas();
     }
     if (typeof poblarOpcionesMitadMitad === 'function') {
-      poblarOpcionesMitadMitad();
+      poblarOpcionesMitadMitad('Grande'); // Cargar 'Grande' por defecto
     }
     let slideIndex = 0;
     const slider = document.getElementById('slider');
@@ -311,8 +311,10 @@
     }
   });
 
-  function poblarOpcionesMitadMitad() {
-    const pizzasParaMitades = productos.pizzas.filter(p => p.precios.some(precio => precio.tipo === 'Grande'));
+  function poblarOpcionesMitadMitad(size) {
+    const pizzasParaMitades = productos.pizzas.filter(p =>
+      p.precios.some(precio => precio.tipo === size)
+    );
     const select1 = document.getElementById('mitad1');
     const select2 = document.getElementById('mitad2');
 
@@ -320,8 +322,10 @@
 
     let optionsHTML = '<option value="">Elige una pizza</option>';
     pizzasParaMitades.forEach(pizza => {
-        const precioGrande = pizza.precios.find(p => p.tipo === 'Grande').precio;
-        optionsHTML += `<option value="${pizza.nombre}" data-precio="${precioGrande}">${pizza.nombre}</option>`;
+      const precioData = pizza.precios.find(p => p.tipo === size);
+      if (precioData) {
+        optionsHTML += `<option value="${pizza.nombre}" data-precio="${precioData.precio}">${pizza.nombre}</option>`;
+      }
     });
 
     select1.innerHTML = optionsHTML;

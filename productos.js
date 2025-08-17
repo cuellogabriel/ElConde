@@ -779,9 +779,19 @@ function renderProductos(id, lista) {
   if (id === 'pizzas') {
     html += `
       <div class="border-t border-gray-700 mt-4 pt-4">
-        <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg max-w-md mx-auto">
+        <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg max-w-lg mx-auto">
           <h3 class="text-base md:text-lg font-bold mb-3 text-center text-yellow-300">🍕 Armá tu Pizza Mitad y Mitad</h3>
-          <form id="formMitadMitad" class="flex flex-col gap-2 items-center" onsubmit="armarMitadMitad(event)">
+          <form id="formMitadMitad" class="flex flex-col gap-3 items-center" onsubmit="armarMitadMitad(event)">
+            <div class="flex justify-center gap-6 mb-2">
+              <div>
+                <input type="radio" id="sizeGrande" name="mitadMitadSize" value="Grande" checked onchange="poblarOpcionesMitadMitad('Grande')" class="form-radio h-4 w-4 text-yellow-400 bg-gray-600 border-gray-500 focus:ring-yellow-500">
+                <label for="sizeGrande" class="ml-2 cursor-pointer">Grande</label>
+              </div>
+              <div>
+                <input type="radio" id="sizeChica" name="mitadMitadSize" value="Chica" onchange="poblarOpcionesMitadMitad('Chica')" class="form-radio h-4 w-4 text-yellow-400 bg-gray-600 border-gray-500 focus:ring-yellow-500">
+                <label for="sizeChica" class="ml-2 cursor-pointer">Chica</label>
+              </div>
+            </div>
             <div class="w-full flex flex-row gap-2">
               <div class="flex-1">
                 <label class="block mb-1 font-semibold text-xs md:text-sm">Mitad 1:</label>
@@ -796,7 +806,7 @@ function renderProductos(id, lista) {
                 </select>
               </div>
             </div>
-            <button type="submit" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-3 py-1 rounded glow-hover font-bold w-24 text-center text-xs md:text-sm mt-2">
+            <button type="submit" class="bg-slate-900 text-yellow-300 border border-yellow-400 px-3 py-1 rounded glow-hover font-bold w-28 text-center text-xs md:text-sm mt-2">
               Agregar
             </button>
           </form>
