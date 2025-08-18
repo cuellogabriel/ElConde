@@ -228,7 +228,7 @@
       renderPromoEmpanadas();
     }
     if (typeof poblarOpcionesMitadMitad === 'function') {
-      poblarOpcionesMitadMitad('Grande'); // Cargar 'Grande' por defecto
+      poblarOpcionesMitadMitad('Grande'); 
     }
     let slideIndex = 0;
     const slider = document.getElementById('slider');
@@ -308,7 +308,7 @@
         rotateCarousel();
       });
 
-      rotateCarousel(); // Posición inicial
+      rotateCarousel(); 
     }
 
     // --- AJUSTAR ALTURA SLIDER FEEDBACK ---
@@ -316,7 +316,6 @@
       const mapaImg = document.getElementById('mapa-img');
       const sliderContainer = document.getElementById('slider-container');
       if (mapaImg && sliderContainer) {
-        // Solo ajustamos si la imagen es visible y tiene altura
         if (mapaImg.offsetHeight > 0) {
           sliderContainer.style.height = `${mapaImg.offsetHeight}px`;
         }
@@ -325,13 +324,10 @@
 
     const mapaImg = document.getElementById('mapa-img');
     if (mapaImg) {
-      // Ajustar cuando la imagen se cargue, ya que su altura puede cambiar
       mapaImg.addEventListener('load', ajustarAlturaSlider);
-      // Si la imagen ya está en caché y cargada, el evento 'load' podría no dispararse
       if (mapaImg.complete) {
         ajustarAlturaSlider();
       }
-      // Ajustar también cuando la ventana cambie de tamaño
       window.addEventListener('resize', ajustarAlturaSlider);
     }
   });
