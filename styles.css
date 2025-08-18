@@ -73,6 +73,35 @@ body {
       font-weight: bold;
     }
 
+    /* Slider Vertical */
+    .vertical-slider-container {
+      height: 100%; 
+      overflow: hidden;
+      position: relative;
+      border: 2px solid #fbbF24;
+      border-radius: 8px;
+      background-color: #1f1f1f;
+    }
+
+    .vertical-slider-inner {
+      position: absolute;
+      width: 100%;
+      animation: vertical-scroll 120s linear infinite;
+    }
+
+    .vertical-slider-inner:hover {
+      animation-play-state: paused; 
+    }
+
+    @keyframes vertical-scroll {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-50%); 
+      }
+    }
+
     @media (min-width: 768px) {
       .carousel {
         width: 250px;
