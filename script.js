@@ -310,6 +310,30 @@
 
       rotateCarousel(); // Posición inicial
     }
+
+    // --- AJUSTAR ALTURA SLIDER FEEDBACK ---
+    function ajustarAlturaSlider() {
+      const mapaImg = document.getElementById('mapa-img');
+      const sliderContainer = document.getElementById('slider-container');
+      if (mapaImg && sliderContainer) {
+        // Solo ajustamos si la imagen es visible y tiene altura
+        if (mapaImg.offsetHeight > 0) {
+          sliderContainer.style.height = `${mapaImg.offsetHeight}px`;
+        }
+      }
+    }
+
+    const mapaImg = document.getElementById('mapa-img');
+    if (mapaImg) {
+      // Ajustar cuando la imagen se cargue, ya que su altura puede cambiar
+      mapaImg.addEventListener('load', ajustarAlturaSlider);
+      // Si la imagen ya está en caché y cargada, el evento 'load' podría no dispararse
+      if (mapaImg.complete) {
+        ajustarAlturaSlider();
+      }
+      // Ajustar también cuando la ventana cambie de tamaño
+      window.addEventListener('resize', ajustarAlturaSlider);
+    }
   });
 
   function poblarOpcionesMitadMitad(size) {
