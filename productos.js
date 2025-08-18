@@ -633,21 +633,70 @@ hamburguesas: [
       ]
     },
     {
-      nombre: "Heineken - Stella - Miller - Imperial",
+      nombre: "Heineken",
       descripcion: "Cerveza En Lata De 473Ml",
       precios: [
         { tipo: "Lata", precio: 3900 }
       ]
     },
     {
-      nombre: "Quilmes - Grolsch - Andes",
+      nombre: "Stella Artois",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 3900 }
+      ]
+    },
+    {
+      nombre: "Miller",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 3900 }
+      ]
+    },
+    {
+      nombre: "Imperial",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 3900 }
+      ]
+    },
+    {
+      nombre: "Quilmes",
       descripcion: "Cerveza En Lata De 473Ml",
       precios: [
         { tipo: "Lata", precio: 3400 }
       ]
     },
     {
-      nombre: "Warsteiner - Budweiser - Brahama",
+      nombre: "Grolsch",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 3400 }
+      ]
+    },
+    {
+      nombre: "Andes",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 3400 }
+      ]
+    },
+    {
+      nombre: "Warsteiner",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 3200 }
+      ]
+    },
+    {
+      nombre: "Budweiser",
+      descripcion: "Cerveza En Lata De 473Ml",
+      precios: [
+        { tipo: "Lata", precio: 3200 }
+      ]
+    },
+    {
+      nombre: "Brahma",
       descripcion: "Cerveza En Lata De 473Ml",
       precios: [
         { tipo: "Lata", precio: 3200 }
