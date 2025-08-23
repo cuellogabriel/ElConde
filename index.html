@@ -48,8 +48,60 @@
     </nav>
   </header>
 
+  <!-- SLIDER DE PRODUCTOS DESTACADOS -->
+<section class="mt-4 md:mt-6 w-full overflow-hidden">
+  <h2 class="text-xl md:text-2xl font-bold text-center text-yellow-400 mb-4">Nuestros Destacados</h2>
+  <div class="scene">
+    <div class="carousel">
+      <div class="carousel-cell" data-title="Criolla">
+        <img src="pictu/CRIOLLA.jpg" alt="Pizza Criolla">
+      </div>
+      <div class="carousel-cell" data-title="Napolitana">
+        <img src="pictu/NAPOLITANA.jpeg" alt="Pizza Napolitana">
+      </div>
+      <div class="carousel-cell" data-title="Crudo y Rucula">
+        <img src="pictu/CRUDO Y RUCULA.jpeg" alt="Crudo y Rucula">
+      </div>
+      <div class="carousel-cell" data-title="Fugazza Con Queso">
+        <img src="pictu/FUGAZZA CON QUESO.jpg" alt="Fugazza Con Queso">
+      </div>
+      <div class="carousel-cell" data-title="Jamon y Morrones">
+        <img src="pictu/JAMON Y MORRONES.jpeg" alt="Jamon y Morrones">
+      </div>
+      <div class="carousel-cell" data-title="Muzzarella">
+        <img src="pictu/MUZZARELLA.jpeg" alt="Pizza Muzzarella">
+      </div>
+      <div class="carousel-cell" data-title="Calabresa">
+        <img src="pictu/CALABRESSA.jpeg" alt="Pizza Calabresa">
+      </div>
+      <div class="carousel-cell" data-title="Palmitos">
+        <img src="pictu/PALMITOS.jpeg" alt="Pizza con Palmitos">
+      </div>
+      <div class="carousel-cell" data-title="Hamburguesa Completa">
+        <img src="pictu/HAMBURGUESA COMPLETA.jpg" alt="Hamburguesa Completa">
+      </div>
+      <div class="carousel-cell" data-title="Churrasquito Completo">
+        <img src="pictu/churrasquito.jpg" alt="Churrasquito Completo">
+      </div>
+      <div class="carousel-cell" data-title="Sandwich Mila De Carne">
+        <img src="pictu/sandwich mila carne.jpeg" alt="Sandwich Mila De Carne">
+      </div>
+      <div class="carousel-cell" data-title="Sandwich Mila De Pollo">
+        <img src="pictu/sandwich milanesa.jpg" alt="Sandwich Mila De Pollo">
+      </div>
+      <div class="carousel-cell" data-title="Empanadas">
+        <img src="pictu/EMPANADAS.jpeg" alt="Empanadas">
+      </div>
+    </div>
+  </div>
+  <div class="carousel-nav text-center mt-4">
+    <button id="prevProduct" class="px-4 py-2 text-2xl hover:text-yellow-400">❮</button>
+    <button id="nextProduct" class="px-4 py-2 text-2xl hover:text-yellow-400">❯</button>
+  </div>
+</section>
+
   <!-- PROMOCIONES -->
-  <section class="mt-4 md:mt-6 px-2 md:px-0" id="promos">
+  <section class="mt-6 md:mt-10 px-2 md:px-0" id="promos">
     <div class="relative w-full max-w-xs md:max-w-3xl mx-auto overflow-hidden rounded-lg shadow-xl">
       <div id="slider" class="flex transition-all duration-700">
         <div class="w-full flex-shrink-0 bg-gradient-to-r from-gray-800 to-black p-6 text-center whitespace-normal flex flex-col justify-center items-center">
@@ -123,59 +175,6 @@
       <p>No se encontraron productos que coincidan con tu búsqueda.</p>
   </div>
 </section>
-
-<!-- SLIDER DE PRODUCTOS DESTACADOS -->
-<section class="mt-8 md:mt-12 w-full overflow-hidden">
-  <h2 class="text-xl md:text-2xl font-bold text-center text-yellow-400 mb-4">Nuestros Destacados</h2>
-  <div class="scene">
-    <div class="carousel">
-      <div class="carousel-cell" data-title="Criolla">
-        <img src="pictu/CRIOLLA.jpg" alt="Pizza Criolla">
-      </div>
-      <div class="carousel-cell" data-title="Napolitana">
-        <img src="pictu/NAPOLITANA.jpeg" alt="Pizza Napolitana">
-      </div>
-      <div class="carousel-cell" data-title="Crudo y Rucula">
-        <img src="pictu/CRUDO Y RUCULA.jpeg" alt="Crudo y Rucula">
-      </div>
-      <div class="carousel-cell" data-title="Fugazza Con Queso">
-        <img src="pictu/FUGAZZA CON QUESO.jpg" alt="Fugazza Con Queso">
-      </div>
-      <div class="carousel-cell" data-title="Jamon y Morrones">
-        <img src="pictu/JAMON Y MORRONES.jpeg" alt="Jamon y Morrones">
-      </div>
-      <div class="carousel-cell" data-title="Muzzarella">
-        <img src="pictu/MUZZARELLA.jpeg" alt="Pizza Muzzarella">
-      </div>
-      <div class="carousel-cell" data-title="Calabresa">
-        <img src="pictu/CALABRESSA.jpeg" alt="Pizza Calabresa">
-      </div>
-      <div class="carousel-cell" data-title="Palmitos">
-        <img src="pictu/PALMITOS.jpeg" alt="Pizza con Palmitos">
-      </div>
-      <div class="carousel-cell" data-title="Hamburguesa Completa">
-        <img src="pictu/HAMBURGUESA COMPLETA.jpg" alt="Hamburguesa Completa">
-      </div>
-      <div class="carousel-cell" data-title="Churrasquito Completo">
-        <img src="pictu/churrasquito.jpg" alt="Churrasquito Completo">
-      </div>
-      <div class="carousel-cell" data-title="Sandwich Mila De Carne">
-        <img src="pictu/sandwich mila carne.jpeg" alt="Sandwich Mila De Carne">
-      </div>
-      <div class="carousel-cell" data-title="Sandwich Mila De Pollo">
-        <img src="pictu/sandwich milanesa.jpg" alt="Sandwich Mila De Pollo">
-      </div>
-      <div class="carousel-cell" data-title="Empanadas">
-        <img src="pictu/EMPANADAS.jpeg" alt="Empanadas">
-      </div>
-    </div>
-  </div>
-  <div class="carousel-nav text-center mt-4">
-    <button id="prevProduct" class="px-4 py-2 text-2xl hover:text-yellow-400">❮</button>
-    <button id="nextProduct" class="px-4 py-2 text-2xl hover:text-yellow-400">❯</button>
-  </div>
-</section>
-
 
   <!-- CARRITO DE COMPRAS -->
     <section class="fixed bottom-2 right-2 md:bottom-4 md:right-4 bg-gradient-to-r from-gray-800 to-black p-2 md:p-4 rounded-lg shadow-xl hidden w-11/12 md:w-auto" id="carrito">
