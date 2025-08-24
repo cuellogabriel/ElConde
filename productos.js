@@ -450,6 +450,14 @@ minutas: [
       { tipo: "Para 2", precio: 18000 }
     ],
     opciones: {
+      titulo: "Tipo de milanesa",
+      items: [
+        { nombre: "Carne", precio: 0 },
+        { nombre: "Pollo", precio: 0 }
+      ],
+      gratis: true 
+    },
+    opcionesAcompanamiento: {
       titulo: "Acompañamiento",
       items: [
         { nombre: "Papas Fritas", precio: 0 },
@@ -467,6 +475,14 @@ minutas: [
       { tipo: "Para 2", precio: 22100 }
     ],
     opciones: {
+      titulo: "Tipo de milanesa",
+      items: [
+        { nombre: "Carne", precio: 0 },
+        { nombre: "Pollo", precio: 0 }
+      ],
+      gratis: true 
+    },
+    opcionesAcompanamiento: {
       titulo: "Acompañamiento",
       items: [
         { nombre: "Papas Fritas", precio: 0 },

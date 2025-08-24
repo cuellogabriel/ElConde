@@ -107,35 +107,36 @@
         <div class="w-full flex-shrink-0 bg-gradient-to-r from-gray-800 to-black p-6 text-center whitespace-normal flex flex-col justify-center items-center">
           <h3 class="text-xl font-bold mb-2 text-yellow-300">PROMO 1</h3>
           <p class="text-sm md:text-base">🍕 Pizza Individual Muzzarella + 4 Empanadas + 2 Fainá + 🥤 Bebida 1.50L</p>
-          <button onclick="abrirModalPromo('Promo 1', 26200, true)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
+          <button onclick="abrirModalPromo('Promo 1', 26200, true, false, false, true)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
             $26.200
           </button>
         </div>
         <div class="w-full flex-shrink-0 bg-gradient-to-r from-gray-800 to-black p-6 text-center whitespace-normal flex flex-col justify-center items-center">
           <h3 class="text-xl font-bold mb-2 text-yellow-300">PROMO 2</h3>
           <p class="text-sm md:text-base">🍕 Pizza Grande Muzzarella + 4 Empanadas + 1 🥤Bebida 1.50L </p>
-          <button onclick="abrirModalPromo('Promo 2', 30000, true)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
+          <button onclick="abrirModalPromo('Promo 2', 30000, true, false, false, true)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
             $30.000
           </button>
         </div>
         <div class="w-full flex-shrink-0 bg-gradient-to-r from-gray-800 to-black p-6 text-center whitespace-normal flex flex-col justify-center items-center">
           <h3 class="text-xl font-bold mb-2 text-yellow-300">PROMO 3</h3>
           <p class="text-sm md:text-base">🍕 Pizza Grande Muzzarella + 🍕 Pizza Chica De Fugazza con Queso + 1 🥤Bebida 1.50L</p>
-          <button onclick="abrirModalPromo('Promo 3', 28600, false)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
+          <button onclick="abrirModalPromo('Promo 3', 28600, false, false, false, true)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
             $28.600
           </button>
         </div>
+      
         <div class="w-full flex-shrink-0 bg-gradient-to-r from-gray-800 to-black p-6 text-center whitespace-normal flex flex-col justify-center items-center">
           <h3 class="text-xl font-bold mb-2 text-yellow-300">PROMO 4</h3>
           <p class="text-sm md:text-base">🍕 Pizza Grande Napo o Jamon + 4 Empanadas + 2 Faina + 🥤Bebida 1.50L</p>
-          <button onclick="abrirModalPromo('Promo 4', 33400, true)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
+          <button onclick="abrirModalPromo('Promo 4', 33400, true, true, false, true)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
              $33.400
           </button>
         </div>
         <div class="w-full flex-shrink-0 bg-gradient-to-r from-gray-800 to-black p-6 text-center whitespace-normal flex flex-col justify-center items-center">
           <h3 class="text-xl font-bold mb-2 text-yellow-300">PROMO 5</h3>
           <p class="text-sm md:text-base">Milanesa Grande (Pollo o Carne) Napolita + Papas Fritas Grandes + Pan De Pizza</p>
-          <button onclick="agregarAlCarrito('Promo 5', 24300)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
+          <button onclick="abrirModalPromo('Promo 5', 24300, false, false, true, false)" class="mt-4 bg-slate-900 text-yellow-300 border border-yellow-400 px-4 py-2 rounded glow-hover font-bold text-sm">
             $24.300
           </button>
         </div>
@@ -254,6 +255,24 @@
       <input type="hidden" id="promoNombreBase">
       <input type="hidden" id="promoPrecioBase">
       <input type="hidden" id="promoNecesitaEmpanadas">
+      <input type="hidden" id="promoNecesitaPizza">
+      <input type="hidden" id="promoNecesitaMilanesa">
+      
+      <div id="promoPizzaSeleccion" class="space-y-2 hidden">
+        <h4 class="font-semibold text-base">🍕 Elige el gusto de tu pizza grande</h4>
+        <select id="promoPizza" class="w-full p-2 rounded text-black text-xs md:text-base">
+          <option value="Napolitana">Napolitana</option>
+          <option value="Jamon">Jamón</option>
+        </select>
+      </div>
+      
+      <div id="promoMilanesaSeleccion" class="space-y-2 hidden">
+        <h4 class="font-semibold text-base">🥩 Elige el tipo de milanesa</h4>
+        <select id="promoMilanesa" class="w-full p-2 rounded text-black text-xs md:text-base">
+          <option value="Carne">Carne</option>
+          <option value="Pollo">Pollo</option>
+        </select>
+      </div>
       
       <div id="promoEmpanadasSeleccion" class="space-y-2 hidden">
         <h4 class="font-semibold text-base">🥟 Elige 4 empanadas (sin costo)</h4>
@@ -261,7 +280,7 @@
         <p class="font-semibold text-xs text-center">Seleccionadas: <span id="promoEmpanadasConteo">0</span> / 4</p>
       </div>
 
-      <div id="promoBebidaSeleccion" class="space-y-2">
+      <div id="promoBebidaSeleccion" class="space-y-2 hidden">
         <h4 class="font-semibold text-base">🥤 Elige 1 bebida (sin costo)</h4>
         <select id="promoBebida" required class="w-full p-2 rounded text-black text-xs md:text-base"></select>
       </div>
@@ -280,6 +299,14 @@
       <input type="hidden" id="opcionesNombreBase">
       <input type="hidden" id="opcionesPrecioBase">
       <input type="hidden" id="opcionesTipoProducto">
+
+      <div id="opcionesCarneContenedor" class="space-y-2 hidden">
+        <h4 class="font-semibold text-base">🥩 Elige el tipo de milanesa</h4>
+        <select id="opcionesCarneTipo" class="w-full p-2 rounded text-black text-xs md:text-base">
+          <option value="Carne">Carne</option>
+          <option value="Pollo">Pollo</option>
+        </select>
+      </div>
 
       <div id="opcionesContenedor" class="space-y-2">
         <h4 id="modalOpcionesSubtitulo" class="font-semibold text-base"></h4>

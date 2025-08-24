@@ -8,6 +8,23 @@
   }
 
   function agregarAlCarrito(nombre, precio) {
+    const nombreLower = nombre.toLowerCase();
+
+    // FIX MEJORADO: Intercepta promos con milanesa que se agregan directo al carrito.
+    // Esto soluciona el problema si un botón en el HTML (como el del slider "Promo 5")
+    // llama a agregarAlCarrito() directamente en lugar de abrir el modal de personalización.
+
+    // 1. Identificamos si es una promo que necesita elegir tipo de milanesa.
+    const esPromoDeMilanesa = nombreLower.includes('promo') && (nombreLower.includes('milanesa') || nombreLower.includes('promo 5'));
+
+    // 2. Verificamos si ya fue personalizada (los nombres personalizados incluyen paréntesis).
+    const noEstaPersonalizado = !nombre.includes('(');
+
+    if (esPromoDeMilanesa && noEstaPersonalizado) {
+      abrirModalPromo(nombre, precio, false, false, true); // Abrir modal para elegir tipo de milanesa.
+      return; // Detener para no agregar el producto base al carrito.
+    }
+
     const existente = productosCarrito.find(p => p.nombre === nombre);
     if (existente) {
       existente.cantidad += 1;
@@ -372,7 +389,7 @@
 
   // Personalizacion promos
 
-  function abrirModalPromo(nombre, precio, necesitaEmpanadas) {
+  function abrirModalPromo(nombre, precio, necesitaEmpanadas, necesitaPizza = false, necesitaMilanesa = false, necesitaBebida = false) {
     const modal = document.getElementById('modalPromo');
     const form = document.getElementById('formPromo');
     form.reset(); 
@@ -380,7 +397,43 @@
     document.getElementById('promoModalTitulo').textContent = `Personalizar ${nombre}`;
     document.getElementById('promoNombreBase').value = nombre;
     document.getElementById('promoPrecioBase').value = precio;
-    document.getElementById('promoNecesitaEmpanadas').value = necesitaEmpanadas;
+
+    // Pizza selection
+    const seccionPizza = document.getElementById('promoPizzaSeleccion');
+    const selectPizza = document.getElementById('promoPizza');
+    if (necesitaPizza) {
+      seccionPizza.classList.remove('hidden');
+      if (selectPizza) {
+        selectPizza.required = true;
+        selectPizza.onchange = actualizarEstadoBotonPromo;
+      }
+    } else {
+      seccionPizza.classList.add('hidden');
+      if (selectPizza) {
+        selectPizza.required = false;
+        selectPizza.onchange = null;
+      }
+    }
+
+    // Milanesa selection
+    const seccionMilanesa = document.getElementById('promoMilanesaSeleccion');
+    if (necesitaMilanesa) {
+      const selectMilanesa = document.getElementById('promoMilanesa');
+      seccionMilanesa.classList.remove('hidden');
+      if (selectMilanesa) {
+        selectMilanesa.innerHTML = `
+          <option value="">Elegí el tipo de milanesa</option>
+          <option value="Carne">Carne</option>
+          <option value="Pollo">Pollo</option>
+        `;
+        selectMilanesa.required = true;
+        selectMilanesa.onchange = actualizarEstadoBotonPromo;
+      }
+    } else {
+      seccionMilanesa.classList.add('hidden');
+      const selectMilanesa = document.getElementById('promoMilanesa');
+      if (selectMilanesa) { selectMilanesa.required = false; selectMilanesa.onchange = null; }
+    }
 
     // Empanadas 
     const seccionEmpanadas = document.getElementById('promoEmpanadasSeleccion');
@@ -395,22 +448,31 @@
         lista.innerHTML += `
           <div class="flex items-center justify-between">
             <label for="promo-emp-${emp.nombre.replace(/\s+/g, '-')}" class="text-sm">${emp.nombre}${costoAdicionalTexto}</label>
-            <input type="number" id="promo-emp-${emp.nombre.replace(/\s+/g, '-')}" name="${emp.nombre}" data-tipo="${tipoEmpanada}" min="0" max="4" value="0" oninput="actualizarConteoPromoEmpanadas()" class="w-12 text-center bg-gray-700 rounded p-1">
+            <input type="number" id="promo-emp-${emp.nombre.replace(/\s+/g, '-')}" name="${emp.nombre}" data-tipo="${tipoEmpanada}" min="0" max="4" value="0" oninput="actualizarEstadoBotonPromo()" class="w-12 text-center bg-gray-700 rounded p-1">
           </div>`;
       });
       seccionEmpanadas.classList.remove('hidden');
     } else {
       seccionEmpanadas.classList.add('hidden');
     }
-    actualizarConteoPromoEmpanadas(); 
+    actualizarEstadoBotonPromo(); 
 
-    // Bebidas
+    const seccionBebida = document.getElementById('promoBebidaSeleccion');
     const selectBebida = document.getElementById('promoBebida');
-    selectBebida.innerHTML = '<option value="">Selecciona una bebida</option>';
-    productos.bebidas.forEach(beb => {
-      selectBebida.innerHTML += `<option value="${beb.nombre}">${beb.nombre}</option>`;
-    });
 
+    if (necesitaBebida) {
+      seccionBebida.classList.remove('hidden');
+      selectBebida.required = true;
+      selectBebida.innerHTML = '<option value="">Selecciona una bebida</option>';
+      productos.bebidas.forEach(beb => {
+        selectBebida.innerHTML += `<option value="${beb.nombre}">${beb.nombre}</option>`;
+      });
+      selectBebida.onchange = actualizarEstadoBotonPromo;
+    } else {
+      seccionBebida.classList.add('hidden');
+      selectBebida.required = false;
+      selectBebida.onchange = null;
+    }
     modal.classList.remove('hidden');
   }
 
@@ -418,21 +480,38 @@
     document.getElementById('modalPromo').classList.add('hidden');
   }
 
-  function actualizarConteoPromoEmpanadas() {
-    const necesitaEmpanadas = document.getElementById('promoNecesitaEmpanadas').value === 'true';
-    if (!necesitaEmpanadas) {
-      document.getElementById('btnAgregarPromo').disabled = false;
-      document.getElementById('btnAgregarPromo').classList.remove('opacity-50', 'cursor-not-allowed');
-      return;
+  function actualizarEstadoBotonPromo() {
+    const btn = document.getElementById('btnAgregarPromo');
+    let esValido = true;
+
+    const seccionEmpanadas = document.getElementById('promoEmpanadasSeleccion');
+    if (!seccionEmpanadas.classList.contains('hidden')) {
+      const inputs = document.querySelectorAll('#promoEmpanadasLista input[type="number"]');
+      let total = 0;
+      inputs.forEach(input => { total += parseInt(input.value) || 0; });
+      document.getElementById('promoEmpanadasConteo').textContent = total;
+      if (total !== 4) {
+        esValido = false;
+      }
     }
 
-    const inputs = document.querySelectorAll('#promoEmpanadasLista input[type="number"]');
-    let total = 0;
-    inputs.forEach(input => { total += parseInt(input.value) || 0; });
-    document.getElementById('promoEmpanadasConteo').textContent = total;
+    const selectMilanesa = document.getElementById('promoMilanesa');
+    if (selectMilanesa && selectMilanesa.required && !selectMilanesa.value) {
+      esValido = false;
+    }
 
-    const btn = document.getElementById('btnAgregarPromo');
-    if (total === 4) {
+    const selectPizza = document.getElementById('promoPizza');
+    if (selectPizza && selectPizza.required && !selectPizza.value) {
+      esValido = false;
+    }
+
+  
+    const selectBebida = document.getElementById('promoBebida');
+    if (selectBebida && selectBebida.required && !selectBebida.value) {
+      esValido = false;
+    }
+
+    if (esValido) {
       btn.disabled = false;
       btn.classList.remove('opacity-50', 'cursor-not-allowed');
     } else {
@@ -445,10 +524,30 @@
     e.preventDefault();
     const nombreBase = document.getElementById('promoNombreBase').value;
     let precioFinal = parseFloat(document.getElementById('promoPrecioBase').value);
-    const necesitaEmpanadas = document.getElementById('promoNecesitaEmpanadas').value === 'true';
     
     let detalles = [];
-    if (necesitaEmpanadas) {
+
+    const selectPizza = document.getElementById('promoPizza');
+    if (selectPizza && selectPizza.required) {
+      if (!selectPizza.value) {
+        showAlert('Por favor, elegí el tipo de pizza.', 'Selección requerida');
+        return;
+      }
+      detalles.push(`Pizza: ${selectPizza.value}`);
+    }
+
+    // Milanesa selection
+    const selectMilanesa = document.getElementById('promoMilanesa');
+    if (selectMilanesa && selectMilanesa.required) {
+      if (!selectMilanesa.value) {
+        showAlert('Por favor, elegí el tipo de milanesa.', 'Selección requerida');
+        return;
+      }
+      detalles.push(`Milanesa: ${selectMilanesa.value}`);
+    }
+
+    const seccionEmpanadas = document.getElementById('promoEmpanadasSeleccion');
+    if (!seccionEmpanadas.classList.contains('hidden')) {
       const inputs = document.querySelectorAll('#promoEmpanadasLista input[type="number"]');
       let costoExtraEmpanadas = 0;
       const detalleEmpanadas = Array.from(inputs).map(input => {
@@ -463,8 +562,13 @@
       detalles.push(`Empanadas: ${detalleEmpanadas.map(d => `${d.cant} ${d.nom}`).join(', ')}`);
     }
 
-    const bebida = document.getElementById('promoBebida').value;
-    detalles.push(`Bebida: ${bebida}`);
+    const seccionBebida = document.getElementById('promoBebidaSeleccion');
+    if (!seccionBebida || !seccionBebida.classList.contains('hidden')) {
+      const bebida = document.getElementById('promoBebida').value;
+      if (bebida) { 
+        detalles.push(`Bebida: ${bebida}`);
+      }
+    }
 
     const nombreFinal = `${nombreBase} (${detalles.join('. ')})`;
     agregarAlCarrito(nombreFinal, precioFinal);
@@ -524,8 +628,9 @@
     actualizarConteoEmpanadas();
   }
 
-  // Sandwichs y minutas
-
+ 
+  let milanesaSeleccionActual = null;
+  let milanesaTipoSeleccionado = null;
   function abrirModalOpciones(nombreBase, tipo, precioBase, opcionesCodificadas) {
     const modal = document.getElementById('modalOpciones');
     const form = modal.querySelector('form');
@@ -533,29 +638,117 @@
 
     const opciones = JSON.parse(atob(opcionesCodificadas));
 
-    document.getElementById('modalOpcionesTitulo').textContent = `Personalizar ${nombreBase} (${tipo})`;
-    document.getElementById('opcionesNombreBase').value = nombreBase;
-    document.getElementById('opcionesPrecioBase').value = precioBase;
-    document.getElementById('opcionesTipoProducto').value = tipo;
+    const producto = productos.minutas.find(p => p.nombre === nombreBase && p.opcionesAcompanamiento);
+    
+    if (producto && producto.opcionesAcompanamiento) {
+      milanesaSeleccionActual = { nombreBase, tipo, precioBase, opciones, producto };
+      
+      document.getElementById('modalOpcionesTitulo').textContent = `Personalizar ${nombreBase} (${tipo})`;
+      document.getElementById('opcionesNombreBase').value = nombreBase;
+      document.getElementById('opcionesPrecioBase').value = precioBase;
+      document.getElementById('opcionesTipoProducto').value = tipo;
 
-    document.getElementById('modalOpcionesSubtitulo').textContent = `Elige tus ${opciones.titulo}es`;
+      document.getElementById('modalOpcionesSubtitulo').textContent = `Elige el tipo de milanesa`;
+      const lista = document.getElementById('modalOpcionesLista');
+      lista.innerHTML = '';
+
+      opciones.items.forEach((opt, index) => {
+        lista.innerHTML += `
+          <div class="flex items-center justify-start gap-2 bg-gray-700 p-2 rounded">
+            <input type="radio" id="tipo-milanesa-${index}" name="tipo-milanesa" value="${opt.nombre}" data-precio="${opt.precio}" class="form-radio h-4 w-4 text-yellow-400 bg-gray-600 border-gray-500 focus:ring-yellow-500" required>
+            <label for="tipo-milanesa-${index}" class="text-sm">${opt.nombre} <span class="text-yellow-400 text-xs">(sin cargo)</span></label>
+          </div>
+        `;
+      });
+
+      document.getElementById('btnAgregarOpciones').textContent = 'Siguiente';
+      document.getElementById('btnAgregarOpciones').setAttribute('onclick', 'avanzarAcompanamientoMilanesa()');
+
+      modal.classList.remove('hidden');
+    } else {
+      document.getElementById('modalOpcionesTitulo').textContent = `Personalizar ${nombreBase} (${tipo})`;
+      document.getElementById('opcionesNombreBase').value = nombreBase;
+      document.getElementById('opcionesPrecioBase').value = precioBase;
+      document.getElementById('opcionesTipoProducto').value = tipo;
+      if (opciones.titulo && opciones.titulo.toLowerCase().includes('adicional')) {
+        if (!opciones.items.some(item => item.nombre.toLowerCase().includes('papas fritas'))) {
+          opciones.items.push({ nombre: "Porción de Papas Fritas", precio: 4500 });
+        }
+      }
+
+      document.getElementById('modalOpcionesSubtitulo').textContent = `Elige tus ${opciones.titulo}es`;
+      const lista = document.getElementById('modalOpcionesLista');
+      lista.innerHTML = '';
+
+      opciones.items.forEach((opt, index) => {
+        const inputType = opciones.gratis ? 'radio' : 'checkbox';
+        const inputName = opciones.gratis ? 'acompanamiento-gratis' : `opcion-${index}`;
+        const precioTexto = opciones.gratis ? '(sin cargo)' : `(+ $${opt.precio})`;
+
+        lista.innerHTML += `
+          <div class="flex items-center justify-start gap-2 bg-gray-700 p-2 rounded">
+            <input type="${inputType}" id="opcion-${index}" name="${inputName}" value="${opt.nombre}" data-precio="${opt.precio}" class="form-${inputType} h-4 w-4 text-yellow-400 bg-gray-600 border-gray-500 focus:ring-yellow-500">
+            <label for="opcion-${index}" class="text-sm">${opt.nombre} <span class="text-yellow-400 text-xs">${precioTexto}</span></label>
+          </div>
+        `;
+      });
+
+      document.getElementById('btnAgregarOpciones').textContent = 'Agregar al Carrito';
+      document.getElementById('btnAgregarOpciones').setAttribute('onclick', 'agregarProductoConOpciones(event)');
+
+      modal.classList.remove('hidden');
+    }
+  }
+
+  function avanzarAcompanamientoMilanesa() {
+    const tipoMilanesa = document.querySelector('input[name="tipo-milanesa"]:checked');
+    if (!tipoMilanesa) {
+      showAlert('Por favor selecciona el tipo de milanesa', 'Selección requerida');
+      return;
+    }
+    
+    milanesaTipoSeleccionado = tipoMilanesa.value;
+    
+    const opcionesAcompañamiento = milanesaSeleccionActual.producto.opcionesAcompanamiento;
+    document.getElementById('modalOpcionesSubtitulo').textContent = `Elige tu acompañamiento`;
+    
     const lista = document.getElementById('modalOpcionesLista');
     lista.innerHTML = '';
-
-    opciones.items.forEach((opt, index) => {
-      const inputType = opciones.gratis ? 'radio' : 'checkbox';
-      const inputName = opciones.gratis ? 'acompanamiento-gratis' : `opcion-${index}`;
-      const precioTexto = opciones.gratis ? '(sin cargo)' : `(+ $${opt.precio})`;
-
+    
+    opcionesAcompañamiento.items.forEach((opt, index) => {
       lista.innerHTML += `
         <div class="flex items-center justify-start gap-2 bg-gray-700 p-2 rounded">
-          <input type="${inputType}" id="opcion-${index}" name="${inputName}" value="${opt.nombre}" data-precio="${opt.precio}" class="form-${inputType} h-4 w-4 text-yellow-400 bg-gray-600 border-gray-500 focus:ring-yellow-500">
-          <label for="opcion-${index}" class="text-sm">${opt.nombre} <span class="text-yellow-400 text-xs">${precioTexto}</span></label>
+          <input type="radio" id="acompanamiento-${index}" name="acompanamiento" value="${opt.nombre}" data-precio="${opt.precio}" class="form-radio h-4 w-4 text-yellow-400 bg-gray-600 border-gray-500 focus:ring-yellow-500" required>
+          <label for="acompanamiento-${index}" class="text-sm">${opt.nombre} <span class="text-yellow-400 text-xs">(sin cargo)</span></label>
         </div>
       `;
     });
+    
+    document.getElementById('btnAgregarOpciones').textContent = 'Agregar al Carrito';
+    document.getElementById('btnAgregarOpciones').setAttribute('onclick', 'agregarMilanesaConOpciones()');
+  }
 
-    modal.classList.remove('hidden');
+  // Función para agregar milanesa con tipo y acompañamiento
+  function agregarMilanesaConOpciones() {
+    const acompanamiento = document.querySelector('input[name="acompanamiento"]:checked');
+    if (!acompanamiento) {
+      showAlert('Por favor selecciona un acompañamiento', 'Selección requerida');
+      return;
+    }
+    
+    const nombreBase = milanesaSeleccionActual.nombreBase;
+    const tipo = milanesaSeleccionActual.tipo;
+    const precioBase = parseFloat(milanesaSeleccionActual.precioBase);
+    
+    const nombreFinal = `${nombreBase} (${tipo}) - ${milanesaTipoSeleccionado} con ${acompanamiento.value}`;
+    
+    agregarAlCarrito(nombreFinal, precioBase);
+    showAlert(`'${nombreBase}' se agregó al carrito!`, 'Producto Personalizado');
+    cerrarModalOpciones();
+    
+    // Resetear variables
+    milanesaSeleccionActual = null;
+    milanesaTipoSeleccionado = null;
   }
 
   function cerrarModalOpciones() {
@@ -581,8 +774,8 @@
     });
 
     if (detalles.length > 0) {
-      const subtitulo = document.getElementById('modalOpcionesSubtitulo').textContent.replace('Elige tus ', '').replace('s', '');
-      nombreFinal += ` con ${subtitulo}: ${detalles.join(', ')}`;
+      const subtituloSingular = document.getElementById('modalOpcionesSubtitulo').textContent.replace('Elige tus ', '').replace(/es$/, '');
+      nombreFinal += ` con ${subtituloSingular}: ${detalles.join(', ')}`;
     }
 
     agregarAlCarrito(nombreFinal, precioFinal);
