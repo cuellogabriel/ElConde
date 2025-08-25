@@ -9,20 +9,11 @@
 
   function agregarAlCarrito(nombre, precio) {
     const nombreLower = nombre.toLowerCase();
-
-    // FIX MEJORADO: Intercepta promos con milanesa que se agregan directo al carrito.
-    // Esto soluciona el problema si un botón en el HTML (como el del slider "Promo 5")
-    // llama a agregarAlCarrito() directamente en lugar de abrir el modal de personalización.
-
-    // 1. Identificamos si es una promo que necesita elegir tipo de milanesa.
     const esPromoDeMilanesa = nombreLower.includes('promo') && (nombreLower.includes('milanesa') || nombreLower.includes('promo 5'));
-
-    // 2. Verificamos si ya fue personalizada (los nombres personalizados incluyen paréntesis).
     const noEstaPersonalizado = !nombre.includes('(');
-
     if (esPromoDeMilanesa && noEstaPersonalizado) {
-      abrirModalPromo(nombre, precio, false, false, true); // Abrir modal para elegir tipo de milanesa.
-      return; // Detener para no agregar el producto base al carrito.
+      abrirModalPromo(nombre, precio, false, false, true); 
+      return; 
     }
 
     const existente = productosCarrito.find(p => p.nombre === nombre);
@@ -96,6 +87,17 @@
     document.getElementById('formularioRetiro').classList.add('hidden');
   }
 
+  function generarMensajeWhatsApp(datos) {
+    const { tipo, nombre, telefono, direccion, pago, productosTexto, mensajeRecargo, totalFinal } = datos;
+    const encabezado = tipo === 'domicilio' ? '🛒 Pedido El Conde' : '🛒 Pedido para RETIRAR EN LOCAL';
+    let detallesCliente = `Cliente: ${nombre}\nTel: ${telefono}`;
+    if (direccion) {
+      detallesCliente += `\nDirección: ${direccion}`;
+    }
+    const mensaje = `${encabezado}\n${detallesCliente}\nPago: ${pago}\n\nProductos:\n${productosTexto}${mensajeRecargo}\n\nTotal Final: $${totalFinal}`;
+    return `https://wa.me/541160486366?text=${encodeURIComponent(mensaje)}`;
+  }
+
   function enviarPedido(e) {
     e.preventDefault();
     const nombre = document.getElementById('nombre').value;
@@ -104,17 +106,11 @@
     const direccion = document.getElementById('direccion').value;
     const pago = document.getElementById('pago').value;
 
-    const productosTexto = productosCarrito.map(p => {
-      const subtotal = p.precio * p.cantidad;
-      return `• ${p.cantidad} × ${p.nombre} - $${subtotal}`;
-    }).join('\n');
+    const productosTexto = productosCarrito.map(p => `• ${p.cantidad} × ${p.nombre} - $${p.precio * p.cantidad}`).join('\n');
+    const total = productosCarrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
 
-    const total = productosCarrito.reduce((acc, p) => {
-      return acc + p.precio * p.cantidad;
-    }, 0);
-
-    const mensaje = encodeURIComponent(`🛒 Pedido El Conde\nCliente: ${nombre} ${apellido}\nTel: ${telefono}\nDirección: ${direccion}\nPago: ${pago}\n\nProductos:\n${productosTexto}\n\nTotal: $${total}`);
-    window.open(`https://wa.me/541160486366?text=${mensaje}`, '_blank');
+    const urlWhatsApp = generarMensajeWhatsApp({ tipo: 'domicilio', nombre: `${nombre} ${apellido}`, telefono, direccion, pago, productosTexto, mensajeRecargo: '', totalFinal: total.toFixed(2) });
+    window.open(urlWhatsApp, '_blank');
 
     // datos de pago 
     const modal = document.getElementById('modalPago');
@@ -169,8 +165,8 @@
       }
     }
 
-    const mensaje = encodeURIComponent(`🛒 Pedido para RETIRAR EN LOCAL\nCliente: ${nombre}\nTel: ${telefono}\nPago: ${pagoFinalTexto}\n\nProductos:\n${productosTexto}${mensajeRecargo}\n\nTotal Final: $${totalFinal.toFixed(2)}`);
-    window.open(`https://wa.me/541160486366?text=${mensaje}`, '_blank');
+    const urlWhatsApp = generarMensajeWhatsApp({ tipo: 'retiro', nombre, telefono, pago: pagoFinalTexto, productosTexto, mensajeRecargo, totalFinal: totalFinal.toFixed(2) });
+    window.open(urlWhatsApp, '_blank');
 
     const modal = document.getElementById('modalPago');
     const modalTitulo = document.getElementById('modalPagoTitulo');
@@ -663,11 +659,14 @@
 
       document.getElementById('btnAgregarOpciones').textContent = 'Siguiente';
       document.getElementById('btnAgregarOpciones').setAttribute('onclick', 'avanzarAcompanamientoMilanesa()');
+      document.getElementById('btnAgregarOpciones').setAttribute('type', 'button');
 
       modal.classList.remove('hidden');
     } else {
       document.getElementById('modalOpcionesTitulo').textContent = `Personalizar ${nombreBase} (${tipo})`;
       document.getElementById('opcionesNombreBase').value = nombreBase;
+      // Asegurarse de que el botón sea de tipo 'submit' para los casos normales
+      document.getElementById('btnAgregarOpciones').setAttribute('type', 'submit');
       document.getElementById('opcionesPrecioBase').value = precioBase;
       document.getElementById('opcionesTipoProducto').value = tipo;
       if (opciones.titulo && opciones.titulo.toLowerCase().includes('adicional')) {
@@ -725,39 +724,44 @@
     });
     
     document.getElementById('btnAgregarOpciones').textContent = 'Agregar al Carrito';
-    document.getElementById('btnAgregarOpciones').setAttribute('onclick', 'agregarMilanesaConOpciones()');
-  }
-
-  // Función para agregar milanesa con tipo y acompañamiento
-  function agregarMilanesaConOpciones() {
-    const acompanamiento = document.querySelector('input[name="acompanamiento"]:checked');
-    if (!acompanamiento) {
-      showAlert('Por favor selecciona un acompañamiento', 'Selección requerida');
-      return;
-    }
-    
-    const nombreBase = milanesaSeleccionActual.nombreBase;
-    const tipo = milanesaSeleccionActual.tipo;
-    const precioBase = parseFloat(milanesaSeleccionActual.precioBase);
-    
-    const nombreFinal = `${nombreBase} (${tipo}) - ${milanesaTipoSeleccionado} con ${acompanamiento.value}`;
-    
-    agregarAlCarrito(nombreFinal, precioBase);
-    showAlert(`'${nombreBase}' se agregó al carrito!`, 'Producto Personalizado');
-    cerrarModalOpciones();
-    
-    // Resetear variables
-    milanesaSeleccionActual = null;
-    milanesaTipoSeleccionado = null;
+    document.getElementById('btnAgregarOpciones').setAttribute('type', 'submit');
+    document.getElementById('btnAgregarOpciones').removeAttribute('onclick');
   }
 
   function cerrarModalOpciones() {
     document.getElementById('modalOpciones').classList.add('hidden');
+    // Resetear estado para evitar conflictos al cerrar o cambiar de producto
+    const btn = document.getElementById('btnAgregarOpciones');
+    btn.setAttribute('type', 'submit');
+    btn.removeAttribute('onclick');
+    milanesaSeleccionActual = null;
+    milanesaTipoSeleccionado = null;
   }
 
   function agregarProductoConOpciones(e) {
     e.preventDefault();
     
+    // Flujo especial para milanesas (segundo paso)
+    if (milanesaTipoSeleccionado && milanesaSeleccionActual) {
+      const acompanamiento = document.querySelector('input[name="acompanamiento"]:checked');
+      if (!acompanamiento) {
+        showAlert('Por favor selecciona un acompañamiento', 'Selección requerida');
+        return;
+      }
+      
+      const nombreBase = milanesaSeleccionActual.nombreBase;
+      const tipo = milanesaSeleccionActual.tipo;
+      const precioBase = parseFloat(milanesaSeleccionActual.precioBase);
+      
+      const nombreFinal = `${nombreBase} (${tipo}) - ${milanesaTipoSeleccionado} con ${acompanamiento.value}`;
+      
+      agregarAlCarrito(nombreFinal, precioBase);
+      showAlert(`'${nombreBase}' se agregó al carrito!`, 'Producto Personalizado');
+      cerrarModalOpciones();
+      return; 
+    }
+
+    // Flujo normal para otros productos con opciones
     const nombreBase = document.getElementById('opcionesNombreBase').value;
     const tipoProducto = document.getElementById('opcionesTipoProducto').value;
     let precioFinal = parseFloat(document.getElementById('opcionesPrecioBase').value);
