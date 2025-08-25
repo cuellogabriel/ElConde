@@ -1,0 +1,32 @@
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printable-area, #printable-area * {
+        visibility: visible;
+    }
+
+    #printable-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    #order-modal {
+        position: relative;
+        background: none;
+        display: block !important;
+    }
+
+    #modal-content {
+        box-shadow: none;
+        border: 1px solid #000;
+        color: #000;
+    }
+
+    #modal-title, #modal-content header, #modal-content main, #modal-content footer {
+        color: #000 !important; 
+    }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - El Conde</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header -->
+    <header class="bg-gray-800 shadow-md p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-yellow-400">El Conde - Panel de Administración</h1>
+        <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Cerrar Sesión
+        </button>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h2 class="text-2xl font-bold mb-4 text-yellow-400 border-b-2 border-gray-700 pb-2">Pedidos Entrantes</h2>
+                <div id="incoming-orders" class="space-y-4">
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold mb-4 text-yellow-400 border-b-2 border-gray-700 pb-2">Pedidos Impresos</h2>
+                <div id="printed-orders" class="space-y-4">
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal para detalles del pedido -->
+    <div id="order-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div id="modal-content" class="bg-gray-800 text-white rounded-lg shadow-xl w-full max-w-md p-6">
+            <div id="printable-area">
+                <header class="border-b border-gray-600 pb-4 mb-4">
+                    <h2 id="modal-title" class="text-2xl font-bold text-yellow-400">Detalles del Pedido #</h2>
+                    <p class="text-sm text-gray-400">El Conde</p>
+                </header>
+                <main id="modal-body" class="mb-6">
+                    <p>Cargando detalles...</p>
+                </main>
+                <footer class="text-center text-xs text-gray-500">
+                    <p>Gracias por su pedido.</p>
+                </footer>
+            </div>
+            <div class="flex justify-end space-x-4 mt-6 no-print">
+                <button id="close-modal-btn" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cerrar</button>
+                <button id="print-btn" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Imprimir</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAB_sJaiIzUHANCUIQNASoY-mBil5yKSdY",
+        authDomain: "elconde-pizza.firebaseapp.com",
+        projectId: "elconde-pizza",
+        storageBucket: "elconde-pizza.firebasestorage.app",
+        messagingSenderId: "446399184715",
+        appId: "1:446399184715:web:12c137a4185efb29ae32ce",
+        measurementId: "G-F3PGYELM73"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+
+    <script src="admin.js"></script>
+</body>
+</html>
