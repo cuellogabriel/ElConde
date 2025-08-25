@@ -5,8 +5,9 @@ const opcionesHamburguesaSandwich = [
     { nombre: "Panceta", precio: 1300 },
     { nombre: "Provolone", precio: 1300 },
     { nombre: "Roquefort", precio: 1300 },
-    { nombre: "Muzzarella", precio: 1300 },
-    { nombre: "Salsa De Tomate", precio: 1300 }
+    { nombre: "Muzzarella", precio: 1300 }, 
+    { nombre: "Salsa De Tomate", precio: 1300 },
+    { nombre: "Papas Fritas", precio: 2500 } // Adición de Papas Fritas como adicional
 ];
 
 const opcionesAdicionales = {
